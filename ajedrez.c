@@ -17,7 +17,6 @@ typedef struct {
 
 // Variables globales
 Tablero tablero;
-Tablero jaque;
 int fila = 0, columna = 0, filaActual = 0, columnaActual = 0, enroqueConf = 0;
 char letraColumna = 0, letraColumnaActual = 0, pieza, nuevaPieza;
 bool turno = true, piezaSeleccionada = false, enroqueBlancas = false, enroqueNegras =  false, empate = false;
@@ -369,7 +368,7 @@ void mostrarTablero(SDL_Renderer *renderer, TTF_Font *font, Tablero *jugadas) {
         SDL_Surface *surface = TTF_RenderText_Solid(font, letra, textColor); // Genera la superficie del texto
         SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface); // Convierte la superficie en una textura
         SDL_Rect dstRect; // Rectángulo, y lo demás es igual que con los números
-        dstRect.x = (j + 1) * CELL_SIZE + CELL_SIZE / 4; // Que esté alineado
+        dstRect.x = (j + 1) * CELL_SIZE + CELL_SIZE / 4;
         dstRect.y = 0;
         dstRect.w = CELL_SIZE / 2;
         dstRect.h = CELL_SIZE / 2;
@@ -986,11 +985,18 @@ bool tablas() {
 }
 
 bool jaqueMate(){
-    for (int i = 0; i < TAMANIO; i++){
-        for (int j = 0; j < TAMANIO; j++){
-
+    int cont = 0;
+    for(int i = 0; i < TAMANIO; i++){
+        for(int j = 0; j < TAMANIO; j++){
+            if(tablero.tablero[i][j] == 'r' || tablero.tablero[i][j] == 'R'){ // Se cuentan la cantidad de reyes que hay
+                cont++;
+            }
         }
     }
+    if(cont <= 1){ // Si solo hay un rey, se acaba el juego
+        return true;
+    }
+    return false;
 }
 
 
@@ -1078,4 +1084,5 @@ int comprobarAmbiguedad() {
 
     return 0;
 }
+
 
