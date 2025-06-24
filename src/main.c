@@ -61,7 +61,7 @@ bool confirmacionColor();
 int comprobarAmbiguedad();
 
 
-int main() {
+int main(int argc, char *argv[]) {
     // Inicializa SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("Error inicializando SDL: %s\n", SDL_GetError());
