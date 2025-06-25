@@ -1,20 +1,22 @@
-# Variables
+# Compilador
 CC = gcc
-CFLAGS = $(shell sdl2-config --cflags)
-LIBS = $(shell sdl2-config --libs) -lSDL2_image -lSDL2_ttf
-SRC = ajedrez.c
-OBJ = ajedrez.o
-OUT = a
 
-# Regla para compilar el programa
+# Rutas de los headers y libs de SDL en MSYS2
+CFLAGS = -IC:/msys64/mingw64/include/SDL2 -Wall
+LDFLAGS = -LC:/msys64/mingw64/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image
+
+# Archivos fuente y destino
+SRC = ../src/main.c
+OUTDIR = ../bin
+OUT = $(OUTDIR)/main.exe
+
+# Regla principal
+all: $(OUT)
+
 $(OUT): $(SRC)
-	$(CC) $(SRC) -o $(OUT) $(CFLAGS) $(LIBS)
+	mkdir -p $(OUTDIR)
+	$(CC) $(SRC) $(CFLAGS) $(LDFLAGS) -o $(OUT)
 
-# Regla para compilar el archivo fuente .c a .o (si se agrega más código fuente en el futuro)
-$(OBJ): $(SRC)
-	$(CC) -c $(SRC) $(CFLAGS)
-
-# Limpiar archivos generados
+# Limpiar binarios
 clean:
-	rm -f $(OBJ) $(OUT)
-
+	rm -f $(OUT)
