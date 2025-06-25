@@ -507,53 +507,53 @@ void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer) {
 //-----------------------TEXTURAS PIEZAS-----------------------
 void cargarTexturas(SDL_Renderer *renderer) {
     // Piezas blancas
-    texturaReyBlanco = IMG_LoadTexture(renderer, "piezas/rey_b.png"); // Se carga la textura de la pieza, en este caso el rey blanco
+    texturaReyBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/rey-blanco.png"); // Se carga la textura de la pieza, en este caso el rey blanco
     if (!texturaReyBlanco) { // Si no se pudo cargar la textura, se muestra un mensaje de error, y así con todas las piezas
         printf("Error cargando piezas/rey_b.png: %s\n", IMG_GetError());
     }
-    texturaReinaBlanca = IMG_LoadTexture(renderer, "piezas/q_b.png");
+    texturaReinaBlanca = IMG_LoadTexture(renderer, "../assets/images/pieces/dama-blanca.png");
     if (!texturaReinaBlanca) {
         printf("Error cargando piezas/q_b.png: %s\n", IMG_GetError());
     }
-    texturaAlfilBlanco = IMG_LoadTexture(renderer, "piezas/a_b.png");
+    texturaAlfilBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/alfil-blanco.png");
     if (!texturaAlfilBlanco) {
         printf("Error cargando piezas/a_b.png: %s\n", IMG_GetError());
     }
-    texturaCaballoBlanco = IMG_LoadTexture(renderer, "piezas/c_b.png");
+    texturaCaballoBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/caballo-blanco.png");
     if (!texturaCaballoBlanco) {
         printf("Error cargando piezas/c_b.png: %s\n", IMG_GetError());
     }
-    texturaTorreBlanca = IMG_LoadTexture(renderer, "piezas/t_b.png");
+    texturaTorreBlanca = IMG_LoadTexture(renderer, "../assets/images/pieces/torre-blanca.png");
     if (!texturaTorreBlanca) {
         printf("Error cargando piezas/t_b.png: %s\n", IMG_GetError());
     }
-    texturaPeonBlanco = IMG_LoadTexture(renderer, "piezas/p_b.png");
+    texturaPeonBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/peon-blanco.png");
     if (!texturaPeonBlanco) {
         printf("Error cargando piezas/p_b.png: %s\n", IMG_GetError());
     }
 
     // Piezas negras
-    texturaReyNegro = IMG_LoadTexture(renderer, "piezas/r_n.png");
+    texturaReyNegro = IMG_LoadTexture(renderer, "../assets/images/pieces/rey-negro.png");
     if (!texturaReyNegro) {
         printf("Error cargando piezas/r_n.png: %s\n", IMG_GetError());
     }
-    texturaReinaNegra = IMG_LoadTexture(renderer, "piezas/q_n.png");
+    texturaReinaNegra = IMG_LoadTexture(renderer, "../assets/images/pieces/dama-negra.png");
     if (!texturaReinaNegra) {
         printf("Error cargando piezas/q_n.png: %s\n", IMG_GetError());
     }
-    texturaAlfilNegro = IMG_LoadTexture(renderer, "piezas/a_n.png");
+    texturaAlfilNegro = IMG_LoadTexture(renderer, "../assets/images/pieces/alfil-negro.png");
     if (!texturaAlfilNegro) {
         printf("Error cargando piezas/a_n.png: %s\n", IMG_GetError());
     }
-    texturaCaballoNegro = IMG_LoadTexture(renderer, "piezas/c_n.png");
+    texturaCaballoNegro = IMG_LoadTexture(renderer, "../assets/images/pieces/caballo-negro.png");
     if (!texturaCaballoNegro) {
         printf("Error cargando piezas/c_n.png: %s\n", IMG_GetError());
     }
-    texturaTorreNegra = IMG_LoadTexture(renderer, "piezas/t_n.png");
+    texturaTorreNegra = IMG_LoadTexture(renderer, "../assets/images/pieces/torre-negra.png");
     if (!texturaTorreNegra) {
         printf("Error cargando piezas/t_n.png: %s\n", IMG_GetError());
     }
-    texturaPeonNegro = IMG_LoadTexture(renderer, "piezas/p_n.png");
+    texturaPeonNegro = IMG_LoadTexture(renderer, "../assets/images/pieces/peon-negro.png");
     if (!texturaPeonNegro) {
         printf("Error cargando piezas/p_n.png: %s\n", IMG_GetError());
     }
