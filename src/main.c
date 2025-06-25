@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Fuente para la planilla
-    TTF_Font *font2 = TTF_OpenFont("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf", 15);
+    TTF_Font *font2 = TTF_OpenFont("../assets/fonts/static/OpenSans-Regular.ttf", 15);
     if (!font2){
         printf("Error al cargar la fuente para la ventana 2: %s\n", TTF_GetError());
         SDL_DestroyRenderer(renderer2);
