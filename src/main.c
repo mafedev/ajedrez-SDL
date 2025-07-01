@@ -4,6 +4,13 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include "board.h"
+#include "fonts.h"
+#include "globals.h"
+#include "moves.h"
+#include "pieces.h"
+#include "utils.h"
+#include "windows.h"
 
 #define TAMANIO 8
 #define WINDOW_WIDTH 500
