@@ -12,11 +12,6 @@
 #include "utils.h"
 #include "windows.h"
 
-// Texturas de las piezas
-SDL_Texture *texturaReyNegro, *texturaReinaNegra, *texturaAlfilNegro, *texturaCaballoNegro, *texturaTorreNegra, *texturaPeonNegro;
-SDL_Texture *texturaReyBlanco, *texturaReinaBlanca, *texturaAlfilBlanco, *texturaCaballoBlanco, *texturaTorreBlanca, *texturaPeonBlanco;
-
-
 // --------------------DECLARACIÓN DE FUNCIONES--------------------
 
 // Tableros
