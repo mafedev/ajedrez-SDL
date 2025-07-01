@@ -1,5 +1,5 @@
-#ifndef VENTANAS_H
-#define VENTANAS_H
+#ifndef WINDOWS_H
+#define WINDOWS_H
 
 #include <SDL2/SDL.h>
 

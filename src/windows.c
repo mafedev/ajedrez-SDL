@@ -1,4 +1,4 @@
-#include "ventanas.h"
+#include "windows.h"
 #include <stdio.h>
 
 SDL_Window *CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags)
