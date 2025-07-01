@@ -12,11 +12,6 @@
 #include "utils.h"
 #include "windows.h"
 
-#define TAMANIO 8
-#define WINDOW_WIDTH 500
-#define WINDOW_HEIGHT 500
-#define CELL_SIZE 50
-
 typedef struct {
     char tablero[TAMANIO][TAMANIO];
 } Tablero;
