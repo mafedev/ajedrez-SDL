@@ -6,7 +6,7 @@
 SDL_Texture *texturaReyBlanco, *texturaReinaBlanca, *texturaAlfilBlanco, *texturaCaballoBlanco, *texturaTorreBlanca, *texturaPeonBlanco;
 SDL_Texture *texturaReyNegro, *texturaReinaNegra, *texturaAlfilNegro, *texturaCaballoNegro, *texturaTorreNegra, *texturaPeonNegro;
 
-void cargarTexturas(SDL_Renderer *renderer) {
+void loadTexture(SDL_Renderer *renderer) {
     // Piezas blancas
     texturaReyBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/rey-blanco.png"); // Se carga la textura de la pieza, en este caso el rey blanco
     if (!texturaReyBlanco) { // Si no se pudo cargar la textura, se muestra un mensaje de error, y así con todas las piezas

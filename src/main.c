@@ -104,8 +104,8 @@ int main(int argc, char *argv[]) {
     bool juegoTerminado = false;
 
     // Cargar texturas y inicializar tablero
-    cargarTexturas(renderer);
-    inicializarTablero();
+    loadTexture(renderer);
+    initBoard();
 
 
     //--------------BUCLE PRINCIPAL----------------
@@ -141,12 +141,12 @@ int main(int argc, char *argv[]) {
                     } else { // Si hay una pieza seleccionada
                         fila = filaClick;
                         columna = columnaClick;
-                        if (moverPieza(&jugadas)) { // Se mueve la pieza
+                        if (movePiece(&jugadas)) { // Se mueve la pieza
                             notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
                             turno = !turno; // Después de mover la pieza se cambia el turno
                         }
                         piezaSeleccionada = false; // Se pone en false, para que se pueda seleccionar otra pieza
-                        reiniciarJugadas(&jugadas); // Se reinician las jugadas posibles
+                        resetMoves(&jugadas); // Se reinician las jugadas posibles
                     }
                 }
             }
@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
         // Renderiza el tablero
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer); // Limpia la pantalla 
-        mostrarTablero(renderer, font2, &jugadas); // Dibuja el tableo de ajedrez
+        renderBoard(renderer, font2, &jugadas); // Dibuja el tableo de ajedrez
         SDL_RenderPresent(renderer); // Muestra el "dibujo" en la pantalla
 
         // SEGUNDA VENTANA

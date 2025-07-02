@@ -2,8 +2,6 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
-Tablero tablero;
-
 void initBoard(void) {
     for (int i = 0; i < TAMANIO; i++) {
         for (int j = 0; j < TAMANIO; j++) {
@@ -88,7 +86,7 @@ void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Tablero *jugadas) {
             SDL_RenderFillRect(renderer, &rect); // Rellena la casilla con el color
 
             if (tablero.tablero[i][j] != '.') { // Si en esa casilla hay una pieza, se dibuja
-                dibujarPieza(renderer, tablero.tablero[i][j], rect.x, rect.y);
+                drawPiece(renderer, tablero.tablero[i][j], rect.x, rect.y);
             }
         }
     }
@@ -128,7 +126,6 @@ void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Tablero *jugadas) {
         SDL_DestroyTexture(texture);
     }
 }
-
 
 void resetMoves(Tablero *jugadas){
     for(int i = 0; i < TAMANIO; i++){
