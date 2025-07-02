@@ -1,4 +1,3 @@
-#include "board.h"
 #include <stdbool.h>
 #include "globals.h"
 
