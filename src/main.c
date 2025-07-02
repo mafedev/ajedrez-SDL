@@ -13,6 +13,7 @@
 #include "windows.h"
 
 // --------------------DECLARACIÓN DE FUNCIONES--------------------
+
 // Planilla
 void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Tablero *jugadas, char *buffer);
 void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer);
@@ -44,18 +45,16 @@ int main(int argc, char *argv[]) {
     }
 
     // Crea una ventana
-    SDL_Window *window = SDL_CreateWindow("Ajedrez", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    SDL_Window *window = CreateWindow("Ajedrez", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
     if (!window) {
-        printf("Error creando la ventana: %s\n", SDL_GetError());
         TTF_Quit();
         SDL_Quit();
         return 1;
     }
 
     // Crea un renderer
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    SDL_Renderer *renderer = CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
-        printf("Error al crear el renderer: %s\n", SDL_GetError());
         SDL_DestroyWindow(window);
         TTF_Quit();
         SDL_Quit();
@@ -63,9 +62,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Crea una segunda ventana
-    SDL_Window *window2 = SDL_CreateWindow("Planilla de Anotación", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    SDL_Window *window2 = CreateWindow("Planilla de Anotación", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
     if (!window2) {
-        printf("Error creando la segunda ventana: %s\n", SDL_GetError());
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         TTF_Quit();
@@ -74,9 +72,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Crea un renderer para la segunda ventana
-    SDL_Renderer *renderer2 = SDL_CreateRenderer(window2, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    SDL_Renderer *renderer2 = CreateRenderer(window2, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer2) {
-        printf("Error al crear el renderer para la segunda ventana: %s\n", SDL_GetError());
         SDL_DestroyWindow(window2);
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
@@ -88,7 +85,6 @@ int main(int argc, char *argv[]) {
     // Fuente para la planilla
     TTF_Font *font2 = TTF_OpenFont("../assets/fonts/static/OpenSans-Regular.ttf", 15);
     if (!font2){
-        printf("Error al cargar la fuente para la ventana 2: %s\n", TTF_GetError());
         SDL_DestroyRenderer(renderer2);
         SDL_DestroyWindow(window2);
         SDL_DestroyRenderer(renderer);
@@ -98,7 +94,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    
     // --------------- LÓGICA JUEGO --------------- 
 
     // Variables
