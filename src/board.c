@@ -181,7 +181,7 @@ bool movePiece(Tablero *jugadas) {
              // Se intercambian las piezas, para que simule el movimiento, dependiendo de la pieza
             tablero.tablero[fila][columna] = tablero.tablero[filaActual][columnaActual];
             tablero.tablero[filaActual][columnaActual] = '.';
-            if (coronacion()) {
+            if (promotion()) {
                 // Si se realiza una coronación, se cambia el peón por la pieza indicada
                 tablero.tablero[fila][columna] = nuevaPieza;
             }

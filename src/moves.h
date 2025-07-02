@@ -5,18 +5,18 @@
 #include "board.h"
 // Falta cambiarlo a ingles
 
-void jugadasPosibles(Tablero *jugadas);
-void jugadasPeon(Tablero *jugadas);
-void jugadasTorre(Tablero *jugadas);
-void jugadasCaballo(Tablero *jugadas);
-void jugadasAlfil(Tablero *jugadas);
-void jugadasReina(Tablero *jugadas);
-void jugadasRey(Tablero *jugadas);
+void possibleMoves(Tablero *jugadas);
+void pawnMoves(Tablero *jugadas);
+void rookMoves(Tablero *jugadas);
+void knightMoves(Tablero *jugadas);
+void bishopMoves(Tablero *jugadas);
+void queenMoves(Tablero *jugadas);
+void kingMoves(Tablero *jugadas);
 
 // ------------JUGADAS EXTRA----------------
-bool coronacion();
-bool enroque(Tablero *jugadas);
-bool tablas();
-bool jaqueMate();
+bool promotion(); // Coronación de un peón
+bool castling(Tablero *jugadas); // Enroque
+bool stalemate(); // Tablas
+bool checkmate(); // Jaque mate
 
 #endif

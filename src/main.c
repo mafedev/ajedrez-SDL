@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
                         // Verificar el turno
                         if (confirmacionColor()) {
                             piezaSeleccionada = true; // Se selecciona la pieza
-                            jugadasPosibles(&jugadas); // Se obtienen las jugadas posibles
+                            possibleMoves(&jugadas); // Se obtienen las jugadas posibles
                         }
                     } else { // Si hay una pieza seleccionada
                         fila = filaClick;
@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
         }
 
         // Verificar si hay jaque mate
-        if (jaqueMate() && !juegoTerminado) {
+        if (checkmate() && !juegoTerminado) {
             printf("Jaque mate!\n"); // Se muestra por consola
             juegoTerminado = true; // Se termina el juego
             notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
         }
 
         // Verificar si hay tablas
-        if (tablas() && !juegoTerminado) {
+        if (stalemate() && !juegoTerminado) {
             printf("La partida ha terminado en tablas\n");
             juegoTerminado = true; // Si hay tablas por alguna de las razones, se termina el juego
             notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla

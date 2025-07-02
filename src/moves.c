@@ -4,26 +4,26 @@
 #include <ctype.h>
 #include <stdio.h>
 
-void jugadasPosibles(Tablero *jugadas) { // Se pasan las jugadas posibles
+void possibleMoves(Tablero *jugadas) { // Se pasan las jugadas posibles
     // Dependiendo de la pieza, se calculan las jugadas posibles
     if (pieza == 'P' || pieza == 'p') {
-        jugadasPeon(jugadas);
+        pawnMoves(jugadas);
     } else if (pieza == 'D' || pieza == 'd') {
-        jugadasReina(jugadas);
+        queenMoves(jugadas);
     } else if (pieza == 'R' || pieza == 'r') {
-        jugadasRey(jugadas);
+        kingMoves(jugadas);
     } else if (pieza == 'C' || pieza == 'c') {
-        jugadasCaballo(jugadas);
+        knightMoves(jugadas);
     } else if (pieza == 'A' || pieza == 'a') {
-        jugadasAlfil(jugadas);
+        bishopMoves(jugadas);
     } else if (pieza == 'T' || pieza == 't') {
-        jugadasTorre(jugadas);
+        rookMoves(jugadas);
     } else {
         printf("Seleccione una pieza válida\n");
     }
 }
 // PEONES
-void jugadasPeon(Tablero *jugadas) {
+void pawnMoves(Tablero *jugadas) {
     int sentido = (turno) ? -1 : 1;  // Si es turno de las blancas, el sentido es -1 para que vaya hacia arriba, si no, el sentido es 1 para que vayan hacia abajo
     int casilla = filaActual + sentido;     // Calcula la casilla hacia adelante según el sentido
 
@@ -67,7 +67,7 @@ void jugadasPeon(Tablero *jugadas) {
 }
 
 // TORRE
-void jugadasTorre(Tablero *jugadas){
+void rookMoves(Tablero *jugadas){
     // Mover hacia arriba
     for(int i = filaActual - 1; i >= 0; i--){
         if(tablero.tablero[i][columnaActual] == '.'){ // Si la casilla está vacía
@@ -130,7 +130,7 @@ void jugadasTorre(Tablero *jugadas){
 }
 
 // CABALLO
-void jugadasCaballo(Tablero *jugadas) {
+void knightMoves(Tablero *jugadas) {
     // Se hace un array con los movimientos posibles del caballo, que son en forma de L
     int movimientos[TAMANIO][2] = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}}; // Es de 8 x 2, porque son 8 movimientos posibles
     
@@ -153,7 +153,7 @@ void jugadasCaballo(Tablero *jugadas) {
 }
 
 // ALFIL
-void jugadasAlfil(Tablero *jugadas){
+void bishopMoves(Tablero *jugadas){
     // Mover hacia arriba e izquierda
     for(int i = filaActual - 1, j = columnaActual - 1; i >= 0 && j >= 0; i--, j--){ // Se mueve en diagonal hacia arriba y hacia la izquierda
         if(tablero.tablero[i][j] == '.'){ // Si la casilla está vacía
@@ -217,14 +217,14 @@ void jugadasAlfil(Tablero *jugadas){
 }
 
 // REINA
-void jugadasReina(Tablero *jugadas){
+void queenMoves(Tablero *jugadas){
     // La reina puede moverse en todas las direcciones, y combina los movimientos del alfil y la torre
-    jugadasTorre(jugadas);
-    jugadasAlfil(jugadas);
+    rookMoves(jugadas);
+    bishopMoves(jugadas);
 }
 
 // REY
-void jugadasRey(Tablero *jugadas) {
+void kingMoves(Tablero *jugadas) {
     // Se hace un array con los movimientos posibles del rey, que es solo una casilla a su alrededor
     int movimientos[TAMANIO][2] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}}; // Es de 8 x 2, porque son 8 movimientos posibles
 
@@ -246,13 +246,13 @@ void jugadasRey(Tablero *jugadas) {
     }
 
     // Se llama a la función enroque, para que se puedan hacer los movimientos de enroque, si es el caso
-    enroque(jugadas);
+    castling(jugadas);
 }
 
 // ----- JUGADAS EXTRA --------
 
 // Coronar un peón
-bool coronacion() {
+bool promotion() {
     if (pieza == 'P' && fila == 7) { // Si un peón blanco llega a la última fila
         printf("Peón negro coronado, seleccione que pieza quiere reclamar (D, T, A, C): "); // Ingresa por teclado que pieza quiere reclamar
         scanf(" %c", &nuevaPieza);
@@ -270,7 +270,7 @@ bool coronacion() {
 }
 
 // Hacer enroque, largo o corto
-bool enroque(Tablero *jugadas) {
+bool castling(Tablero *jugadas) {
     if (turno) { // Enroque para las blancas
         if (filaActual == 7 && columnaActual == 4) { // Si es la casilla del rey blanco
             // Enroque corto
@@ -298,7 +298,7 @@ bool enroque(Tablero *jugadas) {
 }
 
 
-bool tablas() {
+bool stalemate() {
     // Se evaluan tablas en caso de que no haya suficiente material para hacer jaque mate
     int reyes = 0, alfiles = 0, caballos = 0, peones = 0, reinas = 0, torres = 0;
 
@@ -344,7 +344,7 @@ bool tablas() {
     return false;
 }
 
-bool jaqueMate(){
+bool checkmate(){
     int cont = 0;
     for(int i = 0; i < TAMANIO; i++){
         for(int j = 0; j < TAMANIO; j++){
