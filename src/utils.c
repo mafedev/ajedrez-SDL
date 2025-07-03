@@ -1,5 +1,6 @@
 #include "utils.h"
 #include <stdbool.h>
+#include <ctype.h>
 
 bool confirmacionColor(){
     if(turno){

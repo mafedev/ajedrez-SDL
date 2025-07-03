@@ -1,6 +1,4 @@
 #include "moves.h"
-#include "board.h"
-#include "globals.h"
 #include <ctype.h>
 #include <stdio.h>
 

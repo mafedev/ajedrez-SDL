@@ -2,6 +2,7 @@
 #define PIECES_H
 
 #include <SDL2/SDL.h>
+#include "globals.h"
 
 extern SDL_Texture *texturaReyNegro, *texturaReinaNegra, *texturaAlfilNegro, *texturaCaballoNegro, *texturaTorreNegra, *texturaPeonNegro;
 extern SDL_Texture *texturaReyBlanco, *texturaReinaBlanca, *texturaAlfilBlanco, *texturaCaballoBlanco, *texturaTorreBlanca, *texturaPeonBlanco;

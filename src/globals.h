@@ -3,7 +3,10 @@
 
 #include <stdbool.h>
 #include "config.h"
-#include "board.h"
+
+typedef struct {
+    char tablero[TAMANIO][TAMANIO];
+} Tablero;
 
 extern Tablero tablero;
 extern int fila, columna, filaActual, columnaActual, enroqueConf;

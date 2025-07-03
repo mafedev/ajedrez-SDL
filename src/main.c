@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include "globals.h"
+#include "config.h"
 #include "board.h"
 #include "fonts.h"
 #include "moves.h"

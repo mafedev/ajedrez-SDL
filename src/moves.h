@@ -3,6 +3,9 @@
 
 #include <SDL2/SDL.h>
 #include "board.h"
+#include "globals.h"
+#include "config.h"
+
 // Falta cambiarlo a ingles
 
 void possibleMoves(Tablero *jugadas);
