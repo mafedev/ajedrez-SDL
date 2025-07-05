@@ -8,15 +8,15 @@ void initBoard(void) {
             if (i == 0) {
                 // Piezas negras
                 if (j == 0 || j == 7) {
-                    tablero.tablero[i][j] = 'T'; 
+                    tablero.tablero[i][j] = 'R'; 
                 } else if (j == 1 || j == 6) {
-                    tablero.tablero[i][j] = 'C'; 
+                    tablero.tablero[i][j] = 'N'; 
                 } else if (j == 2 || j == 5) {
-                    tablero.tablero[i][j] = 'A'; 
+                    tablero.tablero[i][j] = 'B'; 
                 } else if (j == 3) {
-                    tablero.tablero[i][j] = 'D';  // Dama negra
+                    tablero.tablero[i][j] = 'Q';  // Dama negra
                 } else if (j == 4) {
-                    tablero.tablero[i][j] = 'R';  // Rey negro
+                    tablero.tablero[i][j] = 'K';  // Rey negro
                 }
             } else if (i == 1) {
                 tablero.tablero[i][j] = 'P';
@@ -24,15 +24,15 @@ void initBoard(void) {
                 tablero.tablero[i][j] = 'p';
             } else if (i == 7) {
                 if (j == 0 || j == 7) {
-                    tablero.tablero[i][j] = 't';  
+                    tablero.tablero[i][j] = 'r';  
                 } else if (j == 1 || j == 6) {
-                    tablero.tablero[i][j] = 'c';  
+                    tablero.tablero[i][j] = 'n';  
                 } else if (j == 2 || j == 5) {
-                    tablero.tablero[i][j] = 'a'; 
+                    tablero.tablero[i][j] = 'b'; 
                 } else if (j == 3) {
-                    tablero.tablero[i][j] = 'd';  // Dama blanca
+                    tablero.tablero[i][j] = 'q';  // Dama blanca
                 } else if (j == 4) {
-                    tablero.tablero[i][j] = 'r';  // Rey blanco
+                    tablero.tablero[i][j] = 'k';  // Rey blanco
                 }
             } else {
                 tablero.tablero[i][j] = '.';  // Otras casillas vacías
@@ -142,36 +142,36 @@ bool movePiece(Tablero *jugadas) {
 
         // BLANCAS
         // Enroque corto blanco
-        if (pieza == 'r' && fila == 7 && columna == 6 && tablero.tablero[7][4] == 'r' && tablero.tablero[7][7] == 't' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
+        if (pieza == 'k' && fila == 7 && columna == 6 && tablero.tablero[7][4] == 'k' && tablero.tablero[7][7] == 'r' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
             // Se realiza el cambio
-            tablero.tablero[7][6] = 'r';
-            tablero.tablero[7][5] = 't';
+            tablero.tablero[7][6] = 'k';
+            tablero.tablero[7][5] = 'r';
             tablero.tablero[7][4] = '.';
             tablero.tablero[7][7] = '.';
             enroqueConf = 1; // Se marca como enroque corto
             enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // Enroque largo blanco 
-        else if (pieza == 'r' && fila == 7 && columna == 2 && tablero.tablero[7][4] == 'r' && tablero.tablero[7][0] == 't' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
+        else if (pieza == 'k' && fila == 7 && columna == 2 && tablero.tablero[7][4] == 'k' && tablero.tablero[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
             // Se realiza el cambio
-            tablero.tablero[7][2] = 'r';
-            tablero.tablero[7][3] = 't';
+            tablero.tablero[7][2] = 'k';
+            tablero.tablero[7][3] = 'r';
             tablero.tablero[7][4] = '.';
             tablero.tablero[7][0] = '.';
             enroqueConf = 2; // Se marca como enroque largo
             enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // NEGRAS
-        else if (pieza == 'R' && fila == 0 && columna == 6 && tablero.tablero[0][4] == 'R' && tablero.tablero[0][7] == 'T' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
+        else if (pieza == 'K' && fila == 0 && columna == 6 && tablero.tablero[0][4] == 'K' && tablero.tablero[0][7] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
             // Enroque corto negro
-            tablero.tablero[0][6] = 'R';
-            tablero.tablero[0][5] = 'T';
+            tablero.tablero[0][6] = 'K';
+            tablero.tablero[0][5] = 'R';
             tablero.tablero[0][4] = '.';
             tablero.tablero[0][7] = '.';
             enroqueConf = 3; // Se marca como enroque corto, pero de negras
             enroqueNegras = true; // Y se indica que ya se realizo enroque en las negras, para que no se pueda hacer otro
         } // Enroque largo negro
-        else if (pieza == 'R' && fila == 0 && columna == 2 && tablero.tablero[0][4] == 'R' && tablero.tablero[0][0] == 'T' && !enroqueNegras) { // Lo mismo que con las blancas
-            tablero.tablero[0][2] = 'R';
-            tablero.tablero[0][3] = 'T';
+        else if (pieza == 'K' && fila == 0 && columna == 2 && tablero.tablero[0][4] == 'K' && tablero.tablero[0][0] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas
+            tablero.tablero[0][2] = 'K';
+            tablero.tablero[0][3] = 'R';
             tablero.tablero[0][4] = '.';
             tablero.tablero[0][0] = '.';
             enroqueConf = 4;

@@ -6,15 +6,15 @@ void possibleMoves(Tablero *jugadas) { // Se pasan las jugadas posibles
     // Dependiendo de la pieza, se calculan las jugadas posibles
     if (pieza == 'P' || pieza == 'p') {
         pawnMoves(jugadas);
-    } else if (pieza == 'D' || pieza == 'd') {
+    } else if (pieza == 'Q' || pieza == 'q') {
         queenMoves(jugadas);
-    } else if (pieza == 'R' || pieza == 'r') {
+    } else if (pieza == 'K' || pieza == 'k') {
         kingMoves(jugadas);
-    } else if (pieza == 'C' || pieza == 'c') {
+    } else if (pieza == 'N' || pieza == 'n') {
         knightMoves(jugadas);
-    } else if (pieza == 'A' || pieza == 'a') {
+    } else if (pieza == 'B' || pieza == 'b') {
         bishopMoves(jugadas);
-    } else if (pieza == 'T' || pieza == 't') {
+    } else if (pieza == 'R' || pieza == 'r') {
         rookMoves(jugadas);
     } else {
         printf("Seleccione una pieza válida\n");
@@ -252,13 +252,13 @@ void kingMoves(Tablero *jugadas) {
 // Coronar un peón
 bool promotion() {
     if (pieza == 'P' && fila == 7) { // Si un peón blanco llega a la última fila
-        printf("Peón negro coronado, seleccione que pieza quiere reclamar (D, T, A, C): "); // Ingresa por teclado que pieza quiere reclamar
+        printf("Peón negro coronado, seleccione que pieza quiere reclamar (Q, R, B, N): "); // Ingresa por teclado que pieza quiere reclamar
         scanf(" %c", &nuevaPieza);
         nuevaPieza = toupper(nuevaPieza); // Se pasa a minúscula, porque son piezas blancas
         tablero.tablero[fila][columna] = nuevaPieza; // Y se sustituye
         return true;
     } else if (pieza == 'p' && fila == 0) { // Lo mismo, pero con el peón negro
-        printf("Peón blanco coronado, seleccione que pieza quiere reclamar (d, t, a, c): ");
+        printf("Peón blanco coronado, seleccione que pieza quiere reclamar (q, r, b, n): ");
         scanf(" %c", &nuevaPieza);
         nuevaPieza = tolower(nuevaPieza);
         tablero.tablero[fila][columna] = nuevaPieza;
@@ -272,22 +272,22 @@ bool castling(Tablero *jugadas) {
     if (turno) { // Enroque para las blancas
         if (filaActual == 7 && columnaActual == 4) { // Si es la casilla del rey blanco
             // Enroque corto
-            if (tablero.tablero[7][5] == '.' && tablero.tablero[7][6] == '.' && tablero.tablero[7][7] == 't' && !enroqueBlancas) { // Y las demás piezas están en su lugar, es decir, la torre, y no hay anda entre las dos piezas, y las blancas no hay realizado un enroque
+            if (tablero.tablero[7][5] == '.' && tablero.tablero[7][6] == '.' && tablero.tablero[7][7] == 'r' && !enroqueBlancas) { // Y las demás piezas están en su lugar, es decir, la torre, y no hay anda entre las dos piezas, y las blancas no hay realizado un enroque
                 jugadas->tablero[7][6] = '1'; // Se marca como una posible jugada
             }
             // Enroque largo
-            if (tablero.tablero[7][1] == '.' && tablero.tablero[7][2] == '.' && tablero.tablero[7][3] == '.' && tablero.tablero[7][0] == 't' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
+            if (tablero.tablero[7][1] == '.' && tablero.tablero[7][2] == '.' && tablero.tablero[7][3] == '.' && tablero.tablero[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
                 jugadas->tablero[7][2] = '1';
             }
         }
     } else { // Enroque para las negras
         if (filaActual == 0 && columnaActual == 4) {
             // Enroque corto
-            if (tablero.tablero[0][5] == '.' && tablero.tablero[0][6] == '.' && tablero.tablero[0][7] == 'T' && !enroqueNegras) {
+            if (tablero.tablero[0][5] == '.' && tablero.tablero[0][6] == '.' && tablero.tablero[0][7] == 'R' && !enroqueNegras) {
                 jugadas->tablero[0][6] = '1';
             }
             // Enroque largo
-            if (tablero.tablero[0][1] == '.' && tablero.tablero[0][2] == '.' && tablero.tablero[0][3] == '.' && tablero.tablero[0][0] == 'T' && !enroqueNegras) {
+            if (tablero.tablero[0][1] == '.' && tablero.tablero[0][2] == '.' && tablero.tablero[0][3] == '.' && tablero.tablero[0][0] == 'R' && !enroqueNegras) {
                 jugadas->tablero[0][2] = '1';
             }
         }
@@ -304,17 +304,17 @@ bool stalemate() {
         for (int j = 0; j < TAMANIO; j++) {
             char pieza = tablero.tablero[i][j];
             if (pieza != '.') { 
-                if (pieza == 'R' || pieza == 'r') {
+                if (pieza == 'K' || pieza == 'k') {
                     reyes++; 
-                } else if (pieza == 'A' || pieza == 'a') {
+                } else if (pieza == 'B' || pieza == 'b') {
                     alfiles++;
-                } else if (pieza == 'C' || pieza == 'c') {
+                } else if (pieza == 'N' || pieza == 'n') {
                     caballos++; 
                 } else if (pieza == 'P' || pieza == 'p') {
                     peones++;
-                } else if (pieza == 'D' || pieza == 'd') {
+                } else if (pieza == 'Q' || pieza == 'q') {
                     reinas++;
-                } else if (pieza == 'T' || pieza == 't') {
+                } else if (pieza == 'R' || pieza == 'r') {
                     torres++;
                 }
             }
@@ -346,7 +346,7 @@ bool checkmate(){
     int cont = 0;
     for(int i = 0; i < TAMANIO; i++){
         for(int j = 0; j < TAMANIO; j++){
-            if(tablero.tablero[i][j] == 'r' || tablero.tablero[i][j] == 'R'){ // Se cuentan la cantidad de reyes que hay
+            if(tablero.tablero[i][j] == 'k' || tablero.tablero[i][j] == 'K'){ // Se cuentan la cantidad de reyes que hay
                 cont++;
             }
         }

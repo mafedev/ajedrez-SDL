@@ -35,13 +35,13 @@ int comprobarAmbiguedad() {
         for(int j = 0; j < TAMANIO; j++){
             temp = tablero.tablero[i][j];
             if(islower(temp)){
-                if(temp == 'c'){
+                if(temp == 'n'){
                     fc[contcf++] = i;
                     cc[contcc++] = j; 
-                } else if (temp == 'a'){
+                } else if (temp == 'b'){
                     ac[contaf++] = i;
                     af[contac++] = j;
-                } else if (temp == 't'){
+                } else if (temp == 'r'){
                     tc[conttf++] = i;
                     tf[conttc++] = j;
                 }

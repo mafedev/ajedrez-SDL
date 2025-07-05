@@ -292,7 +292,7 @@ void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer) {
         } else {
             sprintf(temp, "%c%d       \t", letraColumna, fila); // Si no hay captura, solo se muestra a que celda se mueve
         }
-    } else if (pieza == 'C' || pieza == 'A' || pieza == 'T') { // Piezas en las que pueden ocurrir ambigüedades
+    } else if (pieza == 'N' || pieza == 'B' || pieza == 'R') { // Piezas en las que pueden ocurrir ambigüedades
         // Si hay captura
         if (jugadas->tablero[fila][columna] == '2') {
             sprintf(temp, "%c%cx%c%d  \t", pieza, letraColumnaActual, letraColumna, fila);

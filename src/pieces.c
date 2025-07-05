@@ -82,17 +82,17 @@ void drawPiece(SDL_Renderer *renderer, char pieza, int x, int y) {
     SDL_Texture *textura = NULL;
 
     switch (pieza) {
-        case 'R': textura = texturaReyNegro; break;
-        case 'D': textura = texturaReinaNegra; break;
-        case 'A': textura = texturaAlfilNegro; break;
-        case 'C': textura = texturaCaballoNegro; break;
-        case 'T': textura = texturaTorreNegra; break;
+        case 'K': textura = texturaReyNegro; break;
+        case 'Q': textura = texturaReinaNegra; break;
+        case 'B': textura = texturaAlfilNegro; break;
+        case 'N': textura = texturaCaballoNegro; break;
+        case 'R': textura = texturaTorreNegra; break;
         case 'P': textura = texturaPeonNegro; break;
-        case 'r': textura = texturaReyBlanco; break;
-        case 'd': textura = texturaReinaBlanca; break;
-        case 'a': textura = texturaAlfilBlanco; break;
-        case 'c': textura = texturaCaballoBlanco; break;
-        case 't': textura = texturaTorreBlanca; break;
+        case 'k': textura = texturaReyBlanco; break;
+        case 'q': textura = texturaReinaBlanca; break;
+        case 'b': textura = texturaAlfilBlanco; break;
+        case 'n': textura = texturaCaballoBlanco; break;
+        case 'r': textura = texturaTorreBlanca; break;
         case 'p': textura = texturaPeonBlanco; break;
         default: return;  // No dibujar nada si la pieza es inválida
     }
