@@ -139,7 +139,7 @@ int main(int argc, char *argv[]) {
                         columna = columnaClick;
                         if (movePiece(&jugadas)) { // Se mueve la pieza
                             notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
-                            turno = !turno; // Después de mover la pieza se cambia el turno
+                            turn = !turn; // Después de mover la pieza se cambia el turno
                         }
                         piezaSeleccionada = false; // Se pone en false, para que se pueda seleccionar otra pieza
                         resetMoves(&jugadas); // Se reinician las jugadas posibles
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
             juegoTerminado = true; // Se termina el juego
             notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
             // Muestra el ganador en la planilla
-            if (turno) {
+            if (turn) {
                 strcat(buffer, "\n1-0"); // Se concatena el resultado con el buffer, para que lo muestre al final en la planilla de anotación
             } else {
                 strcat(buffer, "\n0-1");
@@ -237,13 +237,13 @@ void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
     char temp[50]; // Buffer temporal para la notación de una jugada
 
     // Es para mostrar la primera fila, y saber cuáles son las blancas y cuáles las negras
-    if(*contadorJugadas <= 1 && turno){
+    if(*contadorJugadas <= 1 && turn){
         sprintf(temp, "Blancas   Negras\n");
         strcat(buffer, temp);
     }
 
     // Si es turno de las blancas, muestra el número de la jugada
-    if (turno) {
+    if (turn) {
         // Añadir un salto de línea antes del contador de jugadas
         sprintf(temp, "\n%d. ", *contadorJugadas); // Se guarda el texto en temp
         strcat(buffer, temp); // Añade temp al final de la cadena buffer, para lueg omostrarlo en la pantalla
@@ -312,7 +312,7 @@ void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
 
     strcat(buffer, temp); // Se añade la jugada al buffer
 
-    if (!turno) { // Si es el turno de las negras, se añade un salto de línea
+    if (!turn) { // Si es el turn de las negras, se añade un salto de línea
         (*contadorJugadas)++; // Y se aumenta el contador de jugadas
     }
 }

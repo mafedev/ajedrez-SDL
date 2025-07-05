@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 bool confirmacionColor(){
-    if(turno){
+    if(turn){
         if(isupper(piece)){
             return false;
         } else {

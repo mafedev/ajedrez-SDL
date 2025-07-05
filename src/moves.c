@@ -22,7 +22,7 @@ void possibleMoves(Board *jugadas) { // Se pasan las jugadas posibles
 }
 // PEONES
 void pawnMoves(Board *jugadas) {
-    int sentido = (turno) ? -1 : 1;  // Si es turno de las blancas, el sentido es -1 para que vaya hacia arriba, si no, el sentido es 1 para que vayan hacia abajo
+    int sentido = (turn) ? -1 : 1;  // Si es turno de las blancas, el sentido es -1 para que vaya hacia arriba, si no, el sentido es 1 para que vayan hacia abajo
     int casilla = filaActual + sentido;     // Calcula la casilla hacia adelante según el sentido
 
     // Movimiento hacia adelante
@@ -30,7 +30,7 @@ void pawnMoves(Board *jugadas) {
         jugadas->board[casilla][columnaActual] = '1';  // Casilla vacía, movimiento válido
 
         // Movimiento inicial de dos casillas
-        if ((turno && filaActual == 6) || (!turno && filaActual == 1)) {  // Si es el turno de las blancas y está en fila 6, o turno el turno de las negras y está en la fila 1
+        if ((turn && filaActual == 6) || (!turn && filaActual == 1)) {  // Si es el turno de las blancas y está en fila 6, o turno el turno de las negras y está en la fila 1
             casilla = filaActual + 2 * sentido;  // Calcula la casilla dos espacios adelante
             if (casilla >= 0 && casilla < TAMANIO && board.board[casilla][columnaActual] == '.') { // Si la casilla está vacía y dentro del rango
                 jugadas->board[casilla][columnaActual] = '1';  // Movimiento de dos casillas válido
@@ -38,7 +38,7 @@ void pawnMoves(Board *jugadas) {
         }
     }
 
-    if(turno){ // Si es el turno de las blancas
+    if(turn){ // Si es el turno de las blancas
 
         // Captura en diagonal izquierda
         if (columnaActual - 1 >= 0 && casilla >= 0 && casilla < TAMANIO && board.board[casilla][columnaActual - 1] != '.' && isupper(board.board[casilla][columnaActual - 1])) { // Si la casilla no está vacía, está dentro del rango y es una pieza negra
@@ -70,10 +70,10 @@ void rookMoves(Board *jugadas){
     for(int i = filaActual - 1; i >= 0; i--){
         if(board.board[i][columnaActual] == '.'){ // Si la casilla está vacía
             jugadas->board[i][columnaActual] = '1'; // Se marca como movimiento válido con el 1
-        } else if(turno && isupper(board.board[i][columnaActual])){ // Si es el turno de las blancas y hay una pieza negra
+        } else if(turn && isupper(board.board[i][columnaActual])){ // Si es el turno de las blancas y hay una pieza negra
             jugadas->board[i][columnaActual] = '2'; // Se marca como captura posible con el 2
             break;
-        } else if (!turno && islower(board.board[i][columnaActual])){ // Si es el turno de las negras y hay una pieza blanca
+        } else if (!turn && islower(board.board[i][columnaActual])){ // Si es el turno de las negras y hay una pieza blanca
             jugadas->board[i][columnaActual] = '2'; // Se marca como captura posible con el 2
             break;
         } else { // Si hay una pieza del mismo color, sale del bucle, porque no puede saltar otra piezas
@@ -85,10 +85,10 @@ void rookMoves(Board *jugadas){
     for(int i = filaActual + 1; i < TAMANIO; i++){
         if(board.board[i][columnaActual] == '.'){ // Si la casilla está vacía
             jugadas->board[i][columnaActual] = '1'; // Se marca como movimiento válido con el 1
-        } else if(turno && isupper(board.board[i][columnaActual])){ // Si es el turno de las blancas y hay una pieza negra
+        } else if(turn && isupper(board.board[i][columnaActual])){ // Si es el turno de las blancas y hay una pieza negra
             jugadas->board[i][columnaActual] = '2'; // Se marca como captura posible con el 2
             break;
-        } else if (!turno && islower(board.board[i][columnaActual])){ // Si es el turno de las negras y hay una pieza blanca
+        } else if (!turn && islower(board.board[i][columnaActual])){ // Si es el turno de las negras y hay una pieza blanca
             jugadas->board[i][columnaActual] = '2';
             break;
         } else { // Si hay una pieza del mismo color, sale del bucle, porque no puede saltar otra piezas
@@ -100,10 +100,10 @@ void rookMoves(Board *jugadas){
     for(int j = columnaActual - 1; j >= 0; j--){  // Lo mismo, pero hacia la izquierda
         if(board.board[filaActual][j] == '.'){
             jugadas->board[filaActual][j] = '1';
-        } else if(turno && isupper(board.board[filaActual][j])){
+        } else if(turn && isupper(board.board[filaActual][j])){
             jugadas->board[filaActual][j] = '2';
             break;
-        } else if(!turno && islower(board.board[filaActual][j])){
+        } else if(!turn && islower(board.board[filaActual][j])){
             jugadas->board[filaActual][j] = '2';
             break;
         } else {
@@ -115,10 +115,10 @@ void rookMoves(Board *jugadas){
     for(int j = columnaActual + 1; j < TAMANIO; j++){
         if(board.board[filaActual][j] == '.'){
             jugadas->board[filaActual][j] = '1';
-        } else if(turno && isupper(board.board[filaActual][j])){
+        } else if(turn && isupper(board.board[filaActual][j])){
             jugadas->board[filaActual][j] = '2';
             break;
-        } else if (!turno && islower(board.board[filaActual][j])){
+        } else if (!turn && islower(board.board[filaActual][j])){
             jugadas->board[filaActual][j] = '2';
             break;
         } else {
@@ -137,7 +137,7 @@ void knightMoves(Board *jugadas) {
         int y = columnaActual + movimientos[i][1]; // Se calcula la columna a la que se moverá
         
         if (x >= 0 && x < TAMANIO && y >= 0 && y < TAMANIO) { // Si esta dentro del rango el movimiento
-            if (turno) { // Si es el turno de las blancas
+            if (turn) { // Si es el turno de las blancas
                 if (board.board[x][y] == '.' || isupper(board.board[x][y])) { // Si la casilla está vacía o hay una pieza negra
                     jugadas->board[x][y] = board.board[x][y] == '.' ? '1' : '2'; // Si está vacía, es un movimiento válido, si no, es una captura posible
                 }
@@ -156,10 +156,10 @@ void bishopMoves(Board *jugadas){
     for(int i = filaActual - 1, j = columnaActual - 1; i >= 0 && j >= 0; i--, j--){ // Se mueve en diagonal hacia arriba y hacia la izquierda
         if(board.board[i][j] == '.'){ // Si la casilla está vacía
             jugadas->board[i][j] = '1'; // Se marca como movimiento válido con el 1
-        } else if(turno && isupper(board.board[i][j])){ // Si es el turno de las blancas y hay una pieza negra
+        } else if(turn && isupper(board.board[i][j])){ // Si es el turno de las blancas y hay una pieza negra
             jugadas->board[i][j] = '2'; // Es una posible captura
             break;
-        } else if(!turno && islower(board.board[i][j])){ // Si es el turno de las negras y hay una pieza blanca
+        } else if(!turn && islower(board.board[i][j])){ // Si es el turno de las negras y hay una pieza blanca
             jugadas->board[i][j] = '2'; // Es una posible captura
             break;
         } else { // Si hay una pieza del mismo color, sale del bucle, porque no puede saltar otra piezas
@@ -172,10 +172,10 @@ void bishopMoves(Board *jugadas){
     for(int i = filaActual - 1, j = columnaActual + 1; i >= 0 && j < TAMANIO; i--, j++){
         if(board.board[i][j] == '.'){
             jugadas->board[i][j] = '1';
-        } else if(turno && isupper(board.board[i][j])){ // Turno de blancas y pieza negra
+        } else if(turn && isupper(board.board[i][j])){ // Turno de blancas y pieza negra
             jugadas->board[i][j] = '2';
             break;
-        } else if(!turno && islower(board.board[i][j])){ // Turno de negras y pieza blanca
+        } else if(!turn && islower(board.board[i][j])){ // Turno de negras y pieza blanca
             jugadas->board[i][j] = '2';
             break;
         } else {
@@ -187,10 +187,10 @@ void bishopMoves(Board *jugadas){
     for(int i = filaActual + 1, j = columnaActual - 1; i < TAMANIO && j >= 0; i++, j--){
         if(board.board[i][j] == '.'){
             jugadas->board[i][j] = '1';
-        } else if(turno && isupper(board.board[i][j])){ // Turno de blancas y pieza negra
+        } else if(turn && isupper(board.board[i][j])){ // Turno de blancas y pieza negra
             jugadas->board[i][j] = '2';
             break;
-        } else if(!turno && islower(board.board[i][j])){ // Turno de negras y pieza blanca
+        } else if(!turn && islower(board.board[i][j])){ // Turno de negras y pieza blanca
             jugadas->board[i][j] = '2';
             break;
         } else {
@@ -202,10 +202,10 @@ void bishopMoves(Board *jugadas){
     for(int i = filaActual + 1, j = columnaActual + 1; i < TAMANIO && j < TAMANIO; i++, j++){
         if(board.board[i][j] == '.'){
             jugadas->board[i][j] = '1';
-        } else if(turno && isupper(board.board[i][j])){ // Turno de blancas y pieza negra
+        } else if(turn && isupper(board.board[i][j])){ // Turno de blancas y pieza negra
             jugadas->board[i][j] = '2';
             break;
-        } else if(!turno && islower(board.board[i][j])){ // Turno de negras y pieza blanca
+        } else if(!turn && islower(board.board[i][j])){ // Turno de negras y pieza blanca
             jugadas->board[i][j] = '2';
             break;
         } else {
@@ -231,7 +231,7 @@ void kingMoves(Board *jugadas) {
         int y = columnaActual + movimientos[i][1]; // Se calcula la columna a la que se moverá
 
         if (x >= 0 && x < TAMANIO && y >= 0 && y < TAMANIO) {
-            if (turno) { // Si es el turno de las blancas
+            if (turn) { // Si es el turno de las blancas
                 if (board.board[x][y] == '.' || isupper(board.board[x][y])) { // Si la casilla está vacía o hay una pieza negra
                     jugadas->board[x][y] = board.board[x][y] == '.' ? '1' : '2'; // Si está vacía, es un movimiento válido, si no, es una captura posible
                 }
@@ -269,7 +269,7 @@ bool promotion() {
 
 // Hacer enroque, largo o corto
 bool castling(Board *jugadas) {
-    if (turno) { // Enroque para las blancas
+    if (turn) { // Enroque para las blancas
         if (filaActual == 7 && columnaActual == 4) { // Si es la casilla del rey blanco
             // Enroque corto
             if (board.board[7][5] == '.' && board.board[7][6] == '.' && board.board[7][7] == 'r' && !enroqueBlancas) { // Y las demás piezas están en su lugar, es decir, la torre, y no hay anda entre las dos piezas, y las blancas no hay realizado un enroque

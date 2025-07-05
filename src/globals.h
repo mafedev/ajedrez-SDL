@@ -11,6 +11,6 @@ typedef struct {
 extern Board board;
 extern int fila, columna, filaActual, columnaActual, enroqueConf;
 extern char letraColumna, letraColumnaActual, piece, nuevaPieza;
-extern bool turno, piezaSeleccionada, enroqueBlancas, enroqueNegras, empate;
+extern bool turn, piezaSeleccionada, enroqueBlancas, enroqueNegras, empate;
 
 #endif
