@@ -127,7 +127,7 @@ int main(int argc, char *argv[]) {
                     if (!piezaSeleccionada) { // Si no hay una pieza seleccionada
                         filaActual = filaClick;
                         columnaActual = columnaClick;
-                        pieza = tablero.tablero[filaActual][columnaActual]; // Obtiene la pieza en la posición actual
+                        piece = tablero.tablero[filaActual][columnaActual]; // Obtiene la pieza en la posición actual
     
                         // Verificar el turno
                         if (confirmacionColor()) {
@@ -275,38 +275,38 @@ void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer) {
     }
 
     // Notación de coronación
-    if ((pieza == 'P' && fila == 7) || (pieza == 'p' && fila == 0)) { // Si alguno de los peones llega a la última fila
-        sprintf(temp, "%c%d=%c\t", letraColumna, fila, nuevaPieza); // Muestra la notación, junto con la pieza que reclama
+    if ((piece == 'P' && fila == 7) || (piece == 'p' && fila == 0)) { // Si alguno de los peones llega a la última fila
+        sprintf(temp, "%c%d=%c\t", letraColumna, fila, nuevaPieza); // Muestra la notación, junto con la piece que reclama
         strcat(buffer, temp); // Añadir la jugada al buffer
         return;
     }
 
     // Se pasa la pieza a mayúscula para que sea más facil de manejar
-    pieza = toupper(pieza);
+    piece = toupper(piece);
 
     // Notación para los peones
-    if (pieza == 'P') {
+    if (piece == 'P') {
         // Si captura una pieza
         if (jugadas->tablero[fila][columna] == '2') { // Las posibles capturas se marcan con 2
             sprintf(temp, "%cx%c%d     \t", letraColumnaActual, letraColumna, fila);
         } else {
             sprintf(temp, "%c%d       \t", letraColumna, fila); // Si no hay captura, solo se muestra a que celda se mueve
         }
-    } else if (pieza == 'N' || pieza == 'B' || pieza == 'R') { // Piezas en las que pueden ocurrir ambigüedades
+    } else if (piece == 'N' || piece == 'B' || piece == 'R') { // Piezas en las que pueden ocurrir ambigüedades
         // Si hay captura
         if (jugadas->tablero[fila][columna] == '2') {
-            sprintf(temp, "%c%cx%c%d  \t", pieza, letraColumnaActual, letraColumna, fila);
+            sprintf(temp, "%c%cx%c%d  \t", piece, letraColumnaActual, letraColumna, fila);
         } else if (ambiguedad == 1) {
-            sprintf(temp, "%c%d%c%d   \t", pieza, filaActual, letraColumna, fila);
+            sprintf(temp, "%c%d%c%d   \t", piece, filaActual, letraColumna, fila);
         } else if (ambiguedad == 2) {
-            sprintf(temp, "%c%c%c%d   \t", pieza, letraColumnaActual, letraColumna, fila);
+            sprintf(temp, "%c%c%c%d   \t", piece, letraColumnaActual, letraColumna, fila);
         }
     } else {
         // Si hay captura
         if (jugadas->tablero[fila][columna] == '2') {
-            sprintf(temp, "%cx%c%d   \t", pieza, letraColumna, fila);
+            sprintf(temp, "%cx%c%d   \t", piece, letraColumna, fila);
         } else {
-            sprintf(temp, "%c%c%d   \t", pieza, letraColumna, fila);
+            sprintf(temp, "%c%c%d   \t", piece, letraColumna, fila);
         }
     }
 

@@ -142,7 +142,7 @@ bool movePiece(Tablero *jugadas) {
 
         // BLANCAS
         // Enroque corto blanco
-        if (pieza == 'k' && fila == 7 && columna == 6 && tablero.tablero[7][4] == 'k' && tablero.tablero[7][7] == 'r' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
+        if (piece == 'k' && fila == 7 && columna == 6 && tablero.tablero[7][4] == 'k' && tablero.tablero[7][7] == 'r' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
             // Se realiza el cambio
             tablero.tablero[7][6] = 'k';
             tablero.tablero[7][5] = 'r';
@@ -151,7 +151,7 @@ bool movePiece(Tablero *jugadas) {
             enroqueConf = 1; // Se marca como enroque corto
             enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // Enroque largo blanco 
-        else if (pieza == 'k' && fila == 7 && columna == 2 && tablero.tablero[7][4] == 'k' && tablero.tablero[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
+        else if (piece == 'k' && fila == 7 && columna == 2 && tablero.tablero[7][4] == 'k' && tablero.tablero[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
             // Se realiza el cambio
             tablero.tablero[7][2] = 'k';
             tablero.tablero[7][3] = 'r';
@@ -160,7 +160,7 @@ bool movePiece(Tablero *jugadas) {
             enroqueConf = 2; // Se marca como enroque largo
             enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // NEGRAS
-        else if (pieza == 'K' && fila == 0 && columna == 6 && tablero.tablero[0][4] == 'K' && tablero.tablero[0][7] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
+        else if (piece == 'K' && fila == 0 && columna == 6 && tablero.tablero[0][4] == 'K' && tablero.tablero[0][7] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
             // Enroque corto negro
             tablero.tablero[0][6] = 'K';
             tablero.tablero[0][5] = 'R';
@@ -169,7 +169,7 @@ bool movePiece(Tablero *jugadas) {
             enroqueConf = 3; // Se marca como enroque corto, pero de negras
             enroqueNegras = true; // Y se indica que ya se realizo enroque en las negras, para que no se pueda hacer otro
         } // Enroque largo negro
-        else if (pieza == 'K' && fila == 0 && columna == 2 && tablero.tablero[0][4] == 'K' && tablero.tablero[0][0] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas
+        else if (piece == 'K' && fila == 0 && columna == 2 && tablero.tablero[0][4] == 'K' && tablero.tablero[0][0] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas
             tablero.tablero[0][2] = 'K';
             tablero.tablero[0][3] = 'R';
             tablero.tablero[0][4] = '.';

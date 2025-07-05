@@ -4,13 +4,13 @@
 
 bool confirmacionColor(){
     if(turno){
-        if(isupper(pieza)){
+        if(isupper(piece)){
             return false;
         } else {
             return true;
         }
     } else {
-        if(islower(pieza)){
+        if(islower(piece)){
             return false;
         } else {
             return true;

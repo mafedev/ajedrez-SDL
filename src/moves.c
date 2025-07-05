@@ -4,20 +4,20 @@
 
 void possibleMoves(Tablero *jugadas) { // Se pasan las jugadas posibles
     // Dependiendo de la pieza, se calculan las jugadas posibles
-    if (pieza == 'P' || pieza == 'p') {
+    if (piece == 'P' || piece == 'p') {
         pawnMoves(jugadas);
-    } else if (pieza == 'Q' || pieza == 'q') {
+    } else if (piece == 'Q' || piece == 'q') {
         queenMoves(jugadas);
-    } else if (pieza == 'K' || pieza == 'k') {
+    } else if (piece == 'K' || piece == 'k') {
         kingMoves(jugadas);
-    } else if (pieza == 'N' || pieza == 'n') {
+    } else if (piece == 'N' || piece == 'n') {
         knightMoves(jugadas);
-    } else if (pieza == 'B' || pieza == 'b') {
+    } else if (piece == 'B' || piece == 'b') {
         bishopMoves(jugadas);
-    } else if (pieza == 'R' || pieza == 'r') {
+    } else if (piece == 'R' || piece == 'r') {
         rookMoves(jugadas);
     } else {
-        printf("Seleccione una pieza válida\n");
+        printf("Seleccione una piece válida\n");
     }
 }
 // PEONES
@@ -251,14 +251,14 @@ void kingMoves(Tablero *jugadas) {
 
 // Coronar un peón
 bool promotion() {
-    if (pieza == 'P' && fila == 7) { // Si un peón blanco llega a la última fila
-        printf("Peón negro coronado, seleccione que pieza quiere reclamar (Q, R, B, N): "); // Ingresa por teclado que pieza quiere reclamar
+    if (piece == 'P' && fila == 7) { // Si un peón blanco llega a la última fila
+        printf("Peón negro coronado, seleccione que piece quiere reclamar (Q, R, B, N): "); // Ingresa por teclado que pieza quiere reclamar
         scanf(" %c", &nuevaPieza);
         nuevaPieza = toupper(nuevaPieza); // Se pasa a minúscula, porque son piezas blancas
         tablero.tablero[fila][columna] = nuevaPieza; // Y se sustituye
         return true;
-    } else if (pieza == 'p' && fila == 0) { // Lo mismo, pero con el peón negro
-        printf("Peón blanco coronado, seleccione que pieza quiere reclamar (q, r, b, n): ");
+    } else if (piece == 'p' && fila == 0) { // Lo mismo, pero con el peón negro
+        printf("Peón blanco coronado, seleccione que piece quiere reclamar (q, r, b, n): ");
         scanf(" %c", &nuevaPieza);
         nuevaPieza = tolower(nuevaPieza);
         tablero.tablero[fila][columna] = nuevaPieza;
@@ -302,19 +302,19 @@ bool stalemate() {
 
     for (int i = 0; i < TAMANIO; i++) {
         for (int j = 0; j < TAMANIO; j++) {
-            char pieza = tablero.tablero[i][j];
-            if (pieza != '.') { 
-                if (pieza == 'K' || pieza == 'k') {
+            char piece = tablero.tablero[i][j];
+            if (piece != '.') { 
+                if (piece == 'K' || piece == 'k') {
                     reyes++; 
-                } else if (pieza == 'B' || pieza == 'b') {
+                } else if (piece == 'B' || piece == 'b') {
                     alfiles++;
-                } else if (pieza == 'N' || pieza == 'n') {
+                } else if (piece == 'N' || piece == 'n') {
                     caballos++; 
-                } else if (pieza == 'P' || pieza == 'p') {
+                } else if (piece == 'P' || piece == 'p') {
                     peones++;
-                } else if (pieza == 'Q' || pieza == 'q') {
+                } else if (piece == 'Q' || piece == 'q') {
                     reinas++;
-                } else if (pieza == 'R' || pieza == 'r') {
+                } else if (piece == 'R' || piece == 'r') {
                     torres++;
                 }
             }

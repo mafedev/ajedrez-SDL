@@ -8,7 +8,7 @@ SDL_Texture *texturaReyNegro, *texturaReinaNegra, *texturaAlfilNegro, *texturaCa
 
 void loadTexture(SDL_Renderer *renderer) {
     // Piezas blancas
-    texturaReyBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/rey-blanco.png"); // Se carga la textura de la pieza, en este caso el rey blanco
+    texturaReyBlanco = IMG_LoadTexture(renderer, "../assets/images/pieces/rey-blanco.png"); // Se carga la textura de la piece, en este caso el rey blanco
     if (!texturaReyBlanco) { // Si no se pudo cargar la textura, se muestra un mensaje de error, y así con todas las piezas
         printf("Error cargando ../assets/images/pieces/rey-blanco.png: %s\n", IMG_GetError());
     }
@@ -78,10 +78,10 @@ void freeTextures(void) {
     #undef LIBERA_TEX
 }
 
-void drawPiece(SDL_Renderer *renderer, char pieza, int x, int y) {
+void drawPiece(SDL_Renderer *renderer, char piece, int x, int y) {
     SDL_Texture *textura = NULL;
 
-    switch (pieza) {
+    switch (piece) {
         case 'K': textura = texturaReyNegro; break;
         case 'Q': textura = texturaReinaNegra; break;
         case 'B': textura = texturaAlfilNegro; break;

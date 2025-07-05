@@ -10,7 +10,7 @@ typedef struct {
 
 extern Tablero tablero;
 extern int fila, columna, filaActual, columnaActual, enroqueConf;
-extern char letraColumna, letraColumnaActual, pieza, nuevaPieza;
+extern char letraColumna, letraColumnaActual, piece, nuevaPieza;
 extern bool turno, piezaSeleccionada, enroqueBlancas, enroqueNegras, empate;
 
 #endif
