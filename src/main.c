@@ -16,8 +16,8 @@
 // --------------------DECLARACIÓN DE FUNCIONES--------------------
 
 // Planilla
-void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Tablero *jugadas, char *buffer);
-void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer);
+void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Board *jugadas, char *buffer);
+void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer);
 
 int main(int argc, char *argv[]) {
     // Inicializa SDL
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
     bool running = true, continuar = true;
     int contadorJugadas = 1;
     char buffer[1024] = "";
-    Tablero jugadas;
+    Board jugadas;
     bool juegoTerminado = false;
 
     // Cargar texturas y inicializar tablero
@@ -127,7 +127,7 @@ int main(int argc, char *argv[]) {
                     if (!piezaSeleccionada) { // Si no hay una pieza seleccionada
                         filaActual = filaClick;
                         columnaActual = columnaClick;
-                        piece = tablero.tablero[filaActual][columnaActual]; // Obtiene la pieza en la posición actual
+                        piece = board.board[filaActual][columnaActual]; // Obtiene la pieza en la posición actual
     
                         // Verificar el turno
                         if (confirmacionColor()) {
@@ -204,7 +204,7 @@ int main(int argc, char *argv[]) {
 
 // -----------------PLANILLA----------------
 // Muestra la planilla de anotación con las jugadas, a medida que se van haciendo
-void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Tablero *jugadas, char *buffer) {
+void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Board *jugadas, char *buffer) {
     SDL_Color color = {0, 0, 0}; // Color negro
 
     // Crear una superficie para el texto
@@ -230,7 +230,7 @@ void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugada
 }
 
 // ---------- NOTACIÓN ALGEBRÁICA ------------
-void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer) {
+void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
     letraColumna = 'a' + columna;
     letraColumnaActual = 'a' + columnaActual;
     int ambiguedad = comprobarAmbiguedad();
@@ -287,14 +287,14 @@ void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer) {
     // Notación para los peones
     if (piece == 'P') {
         // Si captura una pieza
-        if (jugadas->tablero[fila][columna] == '2') { // Las posibles capturas se marcan con 2
+        if (jugadas->board[fila][columna] == '2') { // Las posibles capturas se marcan con 2
             sprintf(temp, "%cx%c%d     \t", letraColumnaActual, letraColumna, fila);
         } else {
             sprintf(temp, "%c%d       \t", letraColumna, fila); // Si no hay captura, solo se muestra a que celda se mueve
         }
     } else if (piece == 'N' || piece == 'B' || piece == 'R') { // Piezas en las que pueden ocurrir ambigüedades
         // Si hay captura
-        if (jugadas->tablero[fila][columna] == '2') {
+        if (jugadas->board[fila][columna] == '2') {
             sprintf(temp, "%c%cx%c%d  \t", piece, letraColumnaActual, letraColumna, fila);
         } else if (ambiguedad == 1) {
             sprintf(temp, "%c%d%c%d   \t", piece, filaActual, letraColumna, fila);
@@ -303,7 +303,7 @@ void notacionAlgebraica(int *contadorJugadas, Tablero *jugadas, char *buffer) {
         }
     } else {
         // Si hay captura
-        if (jugadas->tablero[fila][columna] == '2') {
+        if (jugadas->board[fila][columna] == '2') {
             sprintf(temp, "%cx%c%d   \t", piece, letraColumna, fila);
         } else {
             sprintf(temp, "%c%c%d   \t", piece, letraColumna, fila);

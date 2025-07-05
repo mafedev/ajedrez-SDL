@@ -5,10 +5,10 @@
 #include "config.h"
 
 typedef struct {
-    char tablero[TAMANIO][TAMANIO];
-} Tablero;
+    char board[TAMANIO][TAMANIO];
+} Board;
 
-extern Tablero tablero;
+extern Board board;
 extern int fila, columna, filaActual, columnaActual, enroqueConf;
 extern char letraColumna, letraColumnaActual, piece, nuevaPieza;
 extern bool turno, piezaSeleccionada, enroqueBlancas, enroqueNegras, empate;

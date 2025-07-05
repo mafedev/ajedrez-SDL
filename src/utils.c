@@ -33,7 +33,7 @@ int comprobarAmbiguedad() {
 
     for(int i = 0; i < TAMANIO; i++){
         for(int j = 0; j < TAMANIO; j++){
-            temp = tablero.tablero[i][j];
+            temp = board.board[i][j];
             if(islower(temp)){
                 if(temp == 'n'){
                     fc[contcf++] = i;
