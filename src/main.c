@@ -16,8 +16,8 @@
 // --------------------DECLARACIÓN DE FUNCIONES--------------------
 
 // Planilla
-void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Board *jugadas, char *buffer);
-void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer);
+void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *moveCounter, Board *moves, char *buffer);
+void notacionAlgebraica(int *moveCounter, Board *moves, char *buffer);
 
 int main(int argc, char *argv[]) {
     // Inicializa SDL
@@ -94,9 +94,9 @@ int main(int argc, char *argv[]) {
 
     // Variables
     bool running = true, continuar = true;
-    int contadorJugadas = 1;
+    int moveCounter = 1;
     char buffer[1024] = "";
-    Board jugadas;
+    Board moves;
     bool juegoTerminado = false;
 
     // Cargar texturas y inicializar tablero
@@ -132,17 +132,17 @@ int main(int argc, char *argv[]) {
                         // Verificar el turno
                         if (confirmacionColor()) {
                             piezaSeleccionada = true; // Se selecciona la pieza
-                            possibleMoves(&jugadas); // Se obtienen las jugadas posibles
+                            possibleMoves(&moves); // Se obtienen las jugadas posibles
                         }
                     } else { // Si hay una pieza seleccionada
-                        fila = filaClick;
-                        columna = columnaClick;
-                        if (movePiece(&jugadas)) { // Se mueve la pieza
-                            notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
+                        row = filaClick;
+                        column = columnaClick;
+                        if (movePiece(&moves)) { // Se mueve la pieza
+                            notacionAlgebraica(&moveCounter, &moves, buffer); // Actualiza la planilla
                             turn = !turn; // Después de mover la pieza se cambia el turno
                         }
                         piezaSeleccionada = false; // Se pone en false, para que se pueda seleccionar otra pieza
-                        resetMoves(&jugadas); // Se reinician las jugadas posibles
+                        resetMoves(&moves); // Se reinician las jugadas posibles
                     }
                 }
             }
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
         if (checkmate() && !juegoTerminado) {
             printf("Jaque mate!\n"); // Se muestra por consola
             juegoTerminado = true; // Se termina el juego
-            notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
+            notacionAlgebraica(&moveCounter, &moves, buffer); // Actualiza la planilla
             // Muestra el ganador en la planilla
             if (turn) {
                 strcat(buffer, "\n1-0"); // Se concatena el resultado con el buffer, para que lo muestre al final en la planilla de anotación
@@ -165,21 +165,21 @@ int main(int argc, char *argv[]) {
         if (stalemate() && !juegoTerminado) {
             printf("La partida ha terminado en tablas\n");
             juegoTerminado = true; // Si hay tablas por alguna de las razones, se termina el juego
-            notacionAlgebraica(&contadorJugadas, &jugadas, buffer); // Actualiza la planilla
+            notacionAlgebraica(&moveCounter, &moves, buffer); // Actualiza la planilla
             strcat(buffer, "\n1/2-1/2"); // Se concatena el resultado con el buffer, para que lo muestre al final en la planilla de anotación
         }
 
         // Renderiza el tablero
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer); // Limpia la pantalla 
-        renderBoard(renderer, font2, &jugadas); // Dibuja el tableo de ajedrez
+        renderBoard(renderer, font2, &moves); // Dibuja el tableo de ajedrez
         SDL_RenderPresent(renderer); // Muestra el "dibujo" en la pantalla
 
         // SEGUNDA VENTANA
         // Renderiza la planilla de notación
         SDL_SetRenderDrawColor(renderer2, 255, 255, 255, 255);
         SDL_RenderClear(renderer2);
-        mostrarNotacion(renderer2, font2, &contadorJugadas, &jugadas, buffer); // Lo mismo de arriba, pero para la planilla, y se le pasa el buffer, que es donde se van a almacenar las notaciones
+        mostrarNotacion(renderer2, font2, &moveCounter, &moves, buffer); // Lo mismo de arriba, pero para la planilla, y se le pasa el buffer, que es donde se van a almacenar las notaciones
         SDL_RenderPresent(renderer2);
 
         SDL_Delay(16); // Espera 16 milisegundos
@@ -203,8 +203,8 @@ int main(int argc, char *argv[]) {
 }
 
 // -----------------PLANILLA----------------
-// Muestra la planilla de anotación con las jugadas, a medida que se van haciendo
-void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugadas, Board *jugadas, char *buffer) {
+// Muestra la planilla de anotación con las moves, a medida que se van haciendo
+void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *moveCounter, Board *moves, char *buffer) {
     SDL_Color color = {0, 0, 0}; // Color negro
 
     // Crear una superficie para el texto
@@ -230,22 +230,22 @@ void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *contadorJugada
 }
 
 // ---------- NOTACIÓN ALGEBRÁICA ------------
-void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
-    letraColumna = 'a' + columna;
+void notacionAlgebraica(int *moveCounter, Board *moves, char *buffer) {
+    letraColumna = 'a' + column;
     letraColumnaActual = 'a' + columnaActual;
     int ambiguedad = comprobarAmbiguedad();
     char temp[50]; // Buffer temporal para la notación de una jugada
 
     // Es para mostrar la primera fila, y saber cuáles son las blancas y cuáles las negras
-    if(*contadorJugadas <= 1 && turn){
+    if(*moveCounter <= 1 && turn){
         sprintf(temp, "Blancas   Negras\n");
         strcat(buffer, temp);
     }
 
     // Si es turno de las blancas, muestra el número de la jugada
     if (turn) {
-        // Añadir un salto de línea antes del contador de jugadas
-        sprintf(temp, "\n%d. ", *contadorJugadas); // Se guarda el texto en temp
+        // Añadir un salto de línea antes del contador de moves
+        sprintf(temp, "\n%d. ", *moveCounter); // Se guarda el texto en temp
         strcat(buffer, temp); // Añade temp al final de la cadena buffer, para lueg omostrarlo en la pantalla
     }
 
@@ -259,7 +259,7 @@ void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
     if (enroqueConf == 1) { // Si hay enroque corto en las blancas
         sprintf(temp, "0-0   \t"); // Se guarda el texto en temp
         strcat(buffer, temp); // Añade temp al final de la cadena buffer
-        return; // Es para que no siga ejecutando el código, y no muestre las demás jugadas
+        return; // Es para que no siga ejecutando el código, y no muestre las demás moves
     } else if (enroqueConf == 2) { // Si hay enroque largo en las blancas
         sprintf(temp, "0-0-0 \t");
         strcat(buffer, temp);
@@ -275,8 +275,8 @@ void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
     }
 
     // Notación de coronación
-    if ((piece == 'P' && fila == 7) || (piece == 'p' && fila == 0)) { // Si alguno de los peones llega a la última fila
-        sprintf(temp, "%c%d=%c\t", letraColumna, fila, nuevaPieza); // Muestra la notación, junto con la piece que reclama
+    if ((piece == 'P' && row == 7) || (piece == 'p' && row == 0)) { // Si alguno de los peones llega a la última fila
+        sprintf(temp, "%c%d=%c\t", letraColumna, row, nuevaPieza); // Muestra la notación, junto con la piece que reclama
         strcat(buffer, temp); // Añadir la jugada al buffer
         return;
     }
@@ -287,32 +287,32 @@ void notacionAlgebraica(int *contadorJugadas, Board *jugadas, char *buffer) {
     // Notación para los peones
     if (piece == 'P') {
         // Si captura una pieza
-        if (jugadas->board[fila][columna] == '2') { // Las posibles capturas se marcan con 2
-            sprintf(temp, "%cx%c%d     \t", letraColumnaActual, letraColumna, fila);
+        if (moves->board[row][column] == '2') { // Las posibles capturas se marcan con 2
+            sprintf(temp, "%cx%c%d     \t", letraColumnaActual, letraColumna, row);
         } else {
-            sprintf(temp, "%c%d       \t", letraColumna, fila); // Si no hay captura, solo se muestra a que celda se mueve
+            sprintf(temp, "%c%d       \t", letraColumna, row); // Si no hay captura, solo se muestra a que celda se mueve
         }
     } else if (piece == 'N' || piece == 'B' || piece == 'R') { // Piezas en las que pueden ocurrir ambigüedades
         // Si hay captura
-        if (jugadas->board[fila][columna] == '2') {
-            sprintf(temp, "%c%cx%c%d  \t", piece, letraColumnaActual, letraColumna, fila);
+        if (moves->board[row][column] == '2') {
+            sprintf(temp, "%c%cx%c%d  \t", piece, letraColumnaActual, letraColumna, row);
         } else if (ambiguedad == 1) {
-            sprintf(temp, "%c%d%c%d   \t", piece, filaActual, letraColumna, fila);
+            sprintf(temp, "%c%d%c%d   \t", piece, filaActual, letraColumna, row);
         } else if (ambiguedad == 2) {
-            sprintf(temp, "%c%c%c%d   \t", piece, letraColumnaActual, letraColumna, fila);
+            sprintf(temp, "%c%c%c%d   \t", piece, letraColumnaActual, letraColumna, row);
         }
     } else {
         // Si hay captura
-        if (jugadas->board[fila][columna] == '2') {
-            sprintf(temp, "%cx%c%d   \t", piece, letraColumna, fila);
+        if (moves->board[row][column] == '2') {
+            sprintf(temp, "%cx%c%d   \t", piece, letraColumna, row);
         } else {
-            sprintf(temp, "%c%c%d   \t", piece, letraColumna, fila);
+            sprintf(temp, "%c%c%d   \t", piece, letraColumna, row);
         }
     }
 
     strcat(buffer, temp); // Se añade la jugada al buffer
 
     if (!turn) { // Si es el turn de las negras, se añade un salto de línea
-        (*contadorJugadas)++; // Y se aumenta el contador de jugadas
+        (*moveCounter)++; // Y se aumenta el contador de moves
     }
 }

@@ -9,8 +9,8 @@
 #include <stdbool.h>
 
 void initBoard(void);
-void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Board *jugadas);
-void resetMoves(Board *jugadas);
-bool movePiece(Board *jugadas);
+void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Board *moves);
+void resetMoves(Board *moves);
+bool movePiece(Board *moves);
 
 #endif

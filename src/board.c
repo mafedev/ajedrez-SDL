@@ -41,7 +41,7 @@ void initBoard(void) {
     }
 }
 
-void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Board *jugadas) {
+void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Board *moves) {
     SDL_Rect rect;
     rect.w = CELL_SIZE; // Ancho de la casilla
     rect.h = CELL_SIZE; // Alto de la casilla
@@ -62,9 +62,9 @@ void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Board *jugadas) {
             rect.y = (i + 1) * CELL_SIZE; // Posición y de la casilla
 
             // Colorear según las jugadas posibles
-            if (jugadas->board[i][j] == '1') {
+            if (moves->board[i][j] == '1') {
                 SDL_SetRenderDrawColor(renderer, verde.r, verde.g, verde.b, verde.a);  // Colorea de verde a donde se puede mover la pieza
-            } else if (jugadas->board[i][j] == '2') {
+            } else if (moves->board[i][j] == '2') {
                 SDL_SetRenderDrawColor(renderer, rojo.r, rojo.g, rojo.b, rojo.a);  // Colorea de rojo las piezas que puede capturar
             } else {
                 // Llena el tablero con casillas blancas y negras
@@ -127,22 +127,22 @@ void renderBoard(SDL_Renderer *renderer, TTF_Font *font, Board *jugadas) {
     }
 }
 
-void resetMoves(Board *jugadas){
+void resetMoves(Board *moves){
     for(int i = 0; i < TAMANIO; i++){
         for(int j = 0; j < TAMANIO; j++){
-            jugadas->board[i][j] = '.'; // Se llena todo el tablero con puntos, para que no acumulen las jugadas pasadas
+            moves->board[i][j] = '.'; // Se llena todo el tablero con puntos, para que no acumulen las jugadas pasadas
         }
     }
 }
 
-bool movePiece(Board *jugadas) {
+bool movePiece(Board *moves) {
     enroqueConf = 0; // Se pone en 0, para que no hayan problemas
-    if (jugadas->board[fila][columna] == '1' || jugadas->board[fila][columna] == '2') {
+    if (moves->board[row][column] == '1' || moves->board[row][column] == '2') {
         // Se verifica si se está intentando hacer un enroque
 
         // BLANCAS
         // Enroque corto blanco
-        if (piece == 'k' && fila == 7 && columna == 6 && board.board[7][4] == 'k' && board.board[7][7] == 'r' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
+        if (piece == 'k' && row == 7 && column == 6 && board.board[7][4] == 'k' && board.board[7][7] == 'r' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
             // Se realiza el cambio
             board.board[7][6] = 'k';
             board.board[7][5] = 'r';
@@ -151,7 +151,7 @@ bool movePiece(Board *jugadas) {
             enroqueConf = 1; // Se marca como enroque corto
             enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // Enroque largo blanco 
-        else if (piece == 'k' && fila == 7 && columna == 2 && board.board[7][4] == 'k' && board.board[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
+        else if (piece == 'k' && row == 7 && column == 2 && board.board[7][4] == 'k' && board.board[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
             // Se realiza el cambio
             board.board[7][2] = 'k';
             board.board[7][3] = 'r';
@@ -160,7 +160,7 @@ bool movePiece(Board *jugadas) {
             enroqueConf = 2; // Se marca como enroque largo
             enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // NEGRAS
-        else if (piece == 'K' && fila == 0 && columna == 6 && board.board[0][4] == 'K' && board.board[0][7] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
+        else if (piece == 'K' && row == 0 && column == 6 && board.board[0][4] == 'K' && board.board[0][7] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
             // Enroque corto negro
             board.board[0][6] = 'K';
             board.board[0][5] = 'R';
@@ -169,7 +169,7 @@ bool movePiece(Board *jugadas) {
             enroqueConf = 3; // Se marca como enroque corto, pero de negras
             enroqueNegras = true; // Y se indica que ya se realizo enroque en las negras, para que no se pueda hacer otro
         } // Enroque largo negro
-        else if (piece == 'K' && fila == 0 && columna == 2 && board.board[0][4] == 'K' && board.board[0][0] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas
+        else if (piece == 'K' && row == 0 && column == 2 && board.board[0][4] == 'K' && board.board[0][0] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas
             board.board[0][2] = 'K';
             board.board[0][3] = 'R';
             board.board[0][4] = '.';
@@ -179,11 +179,11 @@ bool movePiece(Board *jugadas) {
         } else {
             // Movimiento normal
              // Se intercambian las piezas, para que simule el movimiento, dependiendo de la pieza
-            board.board[fila][columna] = board.board[filaActual][columnaActual];
+            board.board[row][column] = board.board[filaActual][columnaActual];
             board.board[filaActual][columnaActual] = '.';
             if (promotion()) {
                 // Si se realiza una coronación, se cambia el peón por la pieza indicada
-                board.board[fila][columna] = nuevaPieza;
+                board.board[row][column] = nuevaPieza;
             }
             return true;
         }

@@ -9,7 +9,7 @@ typedef struct {
 } Board;
 
 extern Board board;
-extern int fila, columna, filaActual, columnaActual, enroqueConf;
+extern int row, column, filaActual, columnaActual, enroqueConf;
 extern char letraColumna, letraColumnaActual, piece, nuevaPieza;
 extern bool turn, piezaSeleccionada, enroqueBlancas, enroqueNegras, empate;
 

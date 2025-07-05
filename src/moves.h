@@ -8,17 +8,17 @@
 
 // Falta cambiarlo a ingles
 
-void possibleMoves(Board *jugadas);
-void pawnMoves(Board *jugadas);
-void rookMoves(Board *jugadas);
-void knightMoves(Board *jugadas);
-void bishopMoves(Board *jugadas);
-void queenMoves(Board *jugadas);
-void kingMoves(Board *jugadas);
+void possibleMoves(Board *moves);
+void pawnMoves(Board *moves);
+void rookMoves(Board *moves);
+void knightMoves(Board *moves);
+void bishopMoves(Board *moves);
+void queenMoves(Board *moves);
+void kingMoves(Board *moves);
 
 // ------------JUGADAS EXTRA----------------
 bool promotion(); // Coronación de un peón
-bool castling(Board *jugadas); // Enroque
+bool castling(Board *moves); // Enroque
 bool stalemate(); // Tablas
 bool checkmate(); // Jaque mate
 
