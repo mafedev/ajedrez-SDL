@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     // --------------- LÓGICA JUEGO --------------- 
 
     // Variables
-    bool running = true, continuar = true;
+    bool running = true;
     int moveCounter = 1;
     char buffer[1024] = "";
     Board moves;
@@ -111,9 +111,9 @@ int main(int argc, char *argv[]) {
         // Procesa los eventos en la cola de eventos, obtienen el evento de la cola y lo almacena en evento, si no hay, se acaba el bucle
         while (SDL_PollEvent(&evento)) {
             // Si se cierra la ventana
-            if (evento.type == SDL_QUIT) {
-                printf("Evento de cierre detectado\n");
-                running = false; // Se acaba el programa
+            if (evento.type == SDL_WINDOWEVENT && evento.window.event == SDL_WINDOWEVENT_CLOSE) {
+                printf("Cierre de ventana detectado (ID: %d)\n", evento.window.windowID);
+                running = false;
                 break;
             } else if (evento.type == SDL_MOUSEBUTTONDOWN && !juegoTerminado) { // Cuando se da Click y el juego no ha terminado
                 // Obtiene la posición del mouse
