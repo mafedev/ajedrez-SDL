@@ -124,14 +124,14 @@ int main(int argc, char *argv[]) {
     
                 // Si la posición es válida
                 if (filaClick >= 0 && filaClick < TAMANIO && columnaClick >= 0 && columnaClick < TAMANIO) {
-                    if (!piezaSeleccionada) { // Si no hay una pieza seleccionada
-                        filaActual = filaClick;
-                        columnaActual = columnaClick;
-                        piece = board.board[filaActual][columnaActual]; // Obtiene la pieza en la posición actual
+                    if (!selectedPiece) { // Si no hay una pieza seleccionada
+                        currentRow = filaClick;
+                        currentColumn = columnaClick;
+                        piece = board.board[currentRow][currentColumn]; // Obtiene la pieza en la posición actual
     
                         // Verificar el turno
                         if (confirmacionColor()) {
-                            piezaSeleccionada = true; // Se selecciona la pieza
+                            selectedPiece = true; // Se selecciona la pieza
                             possibleMoves(&moves); // Se obtienen las jugadas posibles
                         }
                     } else { // Si hay una pieza seleccionada
@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
                             notacionAlgebraica(&moveCounter, &moves, buffer); // Actualiza la planilla
                             turn = !turn; // Después de mover la pieza se cambia el turno
                         }
-                        piezaSeleccionada = false; // Se pone en false, para que se pueda seleccionar otra pieza
+                        selectedPiece = false; // Se pone en false, para que se pueda seleccionar otra pieza
                         resetMoves(&moves); // Se reinician las jugadas posibles
                     }
                 }
@@ -231,8 +231,8 @@ void mostrarNotacion(SDL_Renderer *renderer, TTF_Font *font, int *moveCounter, B
 
 // ---------- NOTACIÓN ALGEBRÁICA ------------
 void notacionAlgebraica(int *moveCounter, Board *moves, char *buffer) {
-    letraColumna = 'a' + column;
-    letraColumnaActual = 'a' + columnaActual;
+    columnLetter= 'a' + column;
+    currentColumnLetter= 'a' + currentColumn;
     int ambiguedad = comprobarAmbiguedad();
     char temp[50]; // Buffer temporal para la notación de una jugada
 
@@ -250,25 +250,25 @@ void notacionAlgebraica(int *moveCounter, Board *moves, char *buffer) {
     }
 
     // Notación para tablas
-    if(empate){
+    if(draw){
         sprintf(temp, "1/2 - 1/2");
         strcat(buffer, temp);
     }
 
     // Notación de enroque
-    if (enroqueConf == 1) { // Si hay enroque corto en las blancas
+    if (castlingConfirmation == 1) { // Si hay enroque corto en las blancas
         sprintf(temp, "0-0   \t"); // Se guarda el texto en temp
         strcat(buffer, temp); // Añade temp al final de la cadena buffer
         return; // Es para que no siga ejecutando el código, y no muestre las demás moves
-    } else if (enroqueConf == 2) { // Si hay enroque largo en las blancas
+    } else if (castlingConfirmation == 2) { // Si hay enroque largo en las blancas
         sprintf(temp, "0-0-0 \t");
         strcat(buffer, temp);
         return;
-    } else if (enroqueConf == 3) { // Si hay enroque corto en las negras
+    } else if (castlingConfirmation == 3) { // Si hay enroque corto en las negras
         sprintf(temp, "0-0   \t");
         strcat(buffer, temp);
         return;
-    } else if (enroqueConf == 4) { // Si hay enroque largo en las negras
+    } else if (castlingConfirmation == 4) { // Si hay enroque largo en las negras
         sprintf(temp, "0-0-0  \t");
         strcat(buffer, temp); // Se añade la jugada al buffer
         return;
@@ -276,7 +276,7 @@ void notacionAlgebraica(int *moveCounter, Board *moves, char *buffer) {
 
     // Notación de coronación
     if ((piece == 'P' && row == 7) || (piece == 'p' && row == 0)) { // Si alguno de los peones llega a la última fila
-        sprintf(temp, "%c%d=%c\t", letraColumna, row, nuevaPieza); // Muestra la notación, junto con la piece que reclama
+        sprintf(temp, "%c%d=%c\t", columnLetter, row, newPiece); // Muestra la notación, junto con la piece que reclama
         strcat(buffer, temp); // Añadir la jugada al buffer
         return;
     }
@@ -288,25 +288,25 @@ void notacionAlgebraica(int *moveCounter, Board *moves, char *buffer) {
     if (piece == 'P') {
         // Si captura una pieza
         if (moves->board[row][column] == '2') { // Las posibles capturas se marcan con 2
-            sprintf(temp, "%cx%c%d     \t", letraColumnaActual, letraColumna, row);
+            sprintf(temp, "%cx%c%d     \t", currentColumnLetter, columnLetter, row);
         } else {
-            sprintf(temp, "%c%d       \t", letraColumna, row); // Si no hay captura, solo se muestra a que celda se mueve
+            sprintf(temp, "%c%d       \t", columnLetter, row); // Si no hay captura, solo se muestra a que celda se mueve
         }
     } else if (piece == 'N' || piece == 'B' || piece == 'R') { // Piezas en las que pueden ocurrir ambigüedades
         // Si hay captura
         if (moves->board[row][column] == '2') {
-            sprintf(temp, "%c%cx%c%d  \t", piece, letraColumnaActual, letraColumna, row);
+            sprintf(temp, "%c%cx%c%d  \t", piece, currentColumnLetter, columnLetter, row);
         } else if (ambiguedad == 1) {
-            sprintf(temp, "%c%d%c%d   \t", piece, filaActual, letraColumna, row);
+            sprintf(temp, "%c%d%c%d   \t", piece, currentRow, columnLetter, row);
         } else if (ambiguedad == 2) {
-            sprintf(temp, "%c%c%c%d   \t", piece, letraColumnaActual, letraColumna, row);
+            sprintf(temp, "%c%c%c%d   \t", piece, currentColumnLetter, columnLetter, row);
         }
     } else {
         // Si hay captura
         if (moves->board[row][column] == '2') {
-            sprintf(temp, "%cx%c%d   \t", piece, letraColumna, row);
+            sprintf(temp, "%cx%c%d   \t", piece, columnLetter, row);
         } else {
-            sprintf(temp, "%c%c%d   \t", piece, letraColumna, row);
+            sprintf(temp, "%c%c%d   \t", piece, columnLetter, row);
         }
     }
 

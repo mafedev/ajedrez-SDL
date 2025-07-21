@@ -136,54 +136,54 @@ void resetMoves(Board *moves){
 }
 
 bool movePiece(Board *moves) {
-    enroqueConf = 0; // Se pone en 0, para que no hayan problemas
+    castlingConfirmation = 0; // Se pone en 0, para que no hayan problemas
     if (moves->board[row][column] == '1' || moves->board[row][column] == '2') {
         // Se verifica si se está intentando hacer un enroque
 
         // BLANCAS
         // Enroque corto blanco
-        if (piece == 'k' && row == 7 && column == 6 && board.board[7][4] == 'k' && board.board[7][7] == 'r' && !enroqueBlancas) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
+        if (piece == 'k' && row == 7 && column == 6 && board.board[7][4] == 'k' && board.board[7][7] == 'r' && !whiteCastling) { // Si las piezas están en las posiciones correctas, sin piezas en el medio de ellas
             // Se realiza el cambio
             board.board[7][6] = 'k';
             board.board[7][5] = 'r';
             board.board[7][4] = '.';
             board.board[7][7] = '.';
-            enroqueConf = 1; // Se marca como enroque corto
-            enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
+            castlingConfirmation = 1; // Se marca como enroque corto
+            whiteCastling= true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // Enroque largo blanco 
-        else if (piece == 'k' && row == 7 && column == 2 && board.board[7][4] == 'k' && board.board[7][0] == 'r' && !enroqueBlancas) { // Lo mismo, pero con el enroque largo
+        else if (piece == 'k' && row == 7 && column == 2 && board.board[7][4] == 'k' && board.board[7][0] == 'r' && !whiteCastling) { // Lo mismo, pero con el enroque largo
             // Se realiza el cambio
             board.board[7][2] = 'k';
             board.board[7][3] = 'r';
             board.board[7][4] = '.';
             board.board[7][0] = '.';
-            enroqueConf = 2; // Se marca como enroque largo
-            enroqueBlancas = true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
+            castlingConfirmation = 2; // Se marca como enroque largo
+            whiteCastling= true; // Y se indica que ya se realizó un enroque en las blancas, para que no se pueda hacer otro
         } // NEGRAS
-        else if (piece == 'K' && row == 0 && column == 6 && board.board[0][4] == 'K' && board.board[0][7] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas, pero con las negras
+        else if (piece == 'K' && row == 0 && column == 6 && board.board[0][4] == 'K' && board.board[0][7] == 'R' && !blackCastling) { // Lo mismo que con las blancas, pero con las negras
             // Enroque corto negro
             board.board[0][6] = 'K';
             board.board[0][5] = 'R';
             board.board[0][4] = '.';
             board.board[0][7] = '.';
-            enroqueConf = 3; // Se marca como enroque corto, pero de negras
-            enroqueNegras = true; // Y se indica que ya se realizo enroque en las negras, para que no se pueda hacer otro
+            castlingConfirmation = 3; // Se marca como enroque corto, pero de negras
+            blackCastling= true; // Y se indica que ya se realizo enroque en las negras, para que no se pueda hacer otro
         } // Enroque largo negro
-        else if (piece == 'K' && row == 0 && column == 2 && board.board[0][4] == 'K' && board.board[0][0] == 'R' && !enroqueNegras) { // Lo mismo que con las blancas
+        else if (piece == 'K' && row == 0 && column == 2 && board.board[0][4] == 'K' && board.board[0][0] == 'R' && !blackCastling) { // Lo mismo que con las blancas
             board.board[0][2] = 'K';
             board.board[0][3] = 'R';
             board.board[0][4] = '.';
             board.board[0][0] = '.';
-            enroqueConf = 4;
-            enroqueNegras = true;
+            castlingConfirmation = 4;
+            blackCastling= true;
         } else {
             // Movimiento normal
              // Se intercambian las piezas, para que simule el movimiento, dependiendo de la pieza
-            board.board[row][column] = board.board[filaActual][columnaActual];
-            board.board[filaActual][columnaActual] = '.';
+            board.board[row][column] = board.board[currentRow][currentColumn];
+            board.board[currentRow][currentColumn] = '.';
             if (promotion()) {
                 // Si se realiza una coronación, se cambia el peón por la pieza indicada
-                board.board[row][column] = nuevaPieza;
+                board.board[row][column] = newPiece;
             }
             return true;
         }

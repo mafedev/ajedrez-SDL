@@ -2,6 +2,6 @@
 #include "globals.h"
 
 Board board;
-int row = 0, column = 0, filaActual = 0, columnaActual = 0, enroqueConf = 0;
-char letraColumna = 0, letraColumnaActual = 0, piece, nuevaPieza;
-bool turn = true, piezaSeleccionada = false, enroqueBlancas = false, enroqueNegras = false, empate = false;
+int row = 0, column = 0, currentRow = 0, currentColumn = 0, castlingConfirmation = 0;
+char columnLetter= 0, currentColumnLetter= 0, piece, newPiece;
+bool turn = true, selectedPiece = false, whiteCastling= false, blackCastling= false, draw= false;

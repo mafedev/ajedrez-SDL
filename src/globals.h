@@ -9,8 +9,8 @@ typedef struct {
 } Board;
 
 extern Board board;
-extern int row, column, filaActual, columnaActual, enroqueConf;
-extern char letraColumna, letraColumnaActual, piece, nuevaPieza;
-extern bool turn, piezaSeleccionada, enroqueBlancas, enroqueNegras, empate;
+extern int row, column, currentRow, currentColumn, castlingConfirmation;
+extern char columnLetter, currentColumnLetter, piece, newPiece;
+extern bool turn, selectedPiece, whiteCastling, blackCastling, draw;
 
 #endif
