@@ -1,73 +1,66 @@
-# Ajedrez en C con SDL2
+# Chess in C with SDL2
 
-Este proyecto es un juego de ajedrez interactivo desarrollado en lenguaje C usando la biblioteca gráfica SDL2, junto con SDL2_ttf para renderizar texto y SDL2_image para cargar imágenes.
+This project is an interactive chess game developed in C using the SDL2 graphics library, along with SDL2_ttf for text rendering and SDL2_image for loading images.
 
-Al ejecutar el programa, se abren dos ventanas independientes:
+When the program runs, two separate windows are opened:
 
- - Una muestra el tablero de ajedrez con las piezas, permitiendo interactuar y mover las piezas.
+- One displays the chessboard with the pieces, allowing for interaction and piece movement.
+- The other shows the algebraic notation of each move in real time.
 
- - La otra muestra en tiempo real la notación algebraica de cada jugada realizada.
+The game implements classical chess rules, including castling, pawn promotion, and draws due to insufficient material.
 
-El juego implementa las reglas clásicas del ajedrez, incluyendo enroques, coronación de peones, y tablas por material insuficiente.
+## Features
 
-## Características
+- Graphical chessboard with piece images.
+- Support for:
+  - Legal moves.
+  - Pawn promotion (with piece selection).
+  - Short castling (O-O) and long castling (O-O-O).
+  - Draws due to insufficient material.
+- Separate window displaying algebraic notation of the moves.
+- Graphical interface using SDL2.
+- Uses Open Sans fonts for the notation sheet.
 
-- Tablero de ajedrez visual con piezas gráficas.
-- Soporte para:
-  - Movimientos legales.
-  - Coronación de peones (con selección de pieza).
-  - Enroque corto (O-O) y largo (O-O-O).
-  - Tablas por material insuficiente.
-- Planilla de notación algebraica en una ventana separada.
-- Interfaz gráfica usando SDL2.
-- Uso de fuentes Open Sans para la planilla.
-
-## Capturas de pantalla
+## Screenshots
 <img width="2083" height="1070" alt="image" src="https://github.com/user-attachments/assets/60e3ea6b-7d0f-4f45-adaf-ece694ee0d32" />
 
-
-## Requisitos
+## Requirements
 
 - [SDL2](https://www.libsdl.org/)
 - [SDL2_ttf](https://www.libsdl.org/projects/SDL_ttf/)
 - [SDL2_image](https://www.libsdl.org/projects/SDL_image/)
-- Compilador GCC (recomendado: entorno MSYS2 en Windows)
+- GCC compiler (recommended: MSYS2 environment on Windows)
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 .
-├── src/           # Código fuente principal (main.c)
-├── assets/        # Recursos gráficos y fuentes
-│   ├── images/pieces/  # Imágenes de las piezas
-│   └── fonts/          # Fuentes Open Sans
-├── build/         # Archivos de construcción (Makefile)
-└── bin/           # Binarios generados
+├── src/ # Main source code
+├── assets/ # Graphic and font resources
+│ ├── images/pieces/ # Piece images
+│ └── fonts/ # Open Sans fonts
+├── build/ # Build files (Makefile)
+└── bin/ # Generated binaries
 ```
 
-## Compilación
+## Compilation
 
-Para compilar el proyecto, usa el Makefile incluido:
+To compile the project, use the included Makefile:
 
 ```sh
 cd build
 make
 ```
+The executable will be generated in the bin/ folder as main.exe.
 
-El ejecutable se generará en la carpeta `bin/` como `main.exe`.
+## Execution
 
-## Ejecución
-
-Ejecuta el binario generado:
+Run the generated binary:
 
 ```sh
 ./bin/main.exe
 ```
 
-## Licencia de Fuentes
+## Font License
 
-Las fuentes Open Sans incluidas están bajo la [SIL Open Font License 1.1](https://scripts.sil.org/OFL).
-
----
-
-Desarrollado como proyecto de ajedrez en C con SDL2.
+The included Open Sans fonts are licensed under the SIL Open Font License 1.1.
