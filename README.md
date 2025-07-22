@@ -1,18 +1,30 @@
 # Ajedrez en C con SDL2
 
-Este proyecto es un juego de ajedrez desarrollado en C utilizando la biblioteca gráfica SDL2, junto con SDL2_ttf para fuentes y SDL2_image para imágenes. Permite jugar partidas de ajedrez con interfaz gráfica, mostrando el tablero, piezas y una planilla de notación de jugadas.
+Este proyecto es un juego de ajedrez interactivo desarrollado en lenguaje C usando la biblioteca gráfica SDL2, junto con SDL2_ttf para renderizar texto y SDL2_image para cargar imágenes.
+
+Al ejecutar el programa, se abren dos ventanas independientes:
+
+ - Una muestra el tablero de ajedrez con las piezas, permitiendo interactuar y mover las piezas.
+
+ - La otra muestra en tiempo real la notación algebraica de cada jugada realizada.
+
+El juego implementa las reglas clásicas del ajedrez, incluyendo enroques, coronación de peones, y tablas por material insuficiente.
 
 ## Características
 
 - Tablero de ajedrez visual con piezas gráficas.
 - Soporte para:
   - Movimientos legales.
-  - Coronación.
-  - Enroque.
+  - Coronación de peones (con selección de pieza).
+  - Enroque corto (O-O) y largo (O-O-O).
   - Tablas por material insuficiente.
 - Planilla de notación algebraica en una ventana separada.
 - Interfaz gráfica usando SDL2.
 - Uso de fuentes Open Sans para la planilla.
+
+## Capturas de pantalla
+<img width="2083" height="1070" alt="image" src="https://github.com/user-attachments/assets/60e3ea6b-7d0f-4f45-adaf-ece694ee0d32" />
+
 
 ## Requisitos
 
