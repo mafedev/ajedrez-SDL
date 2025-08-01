@@ -9,6 +9,8 @@ When the program runs, two separate windows are opened:
 
 The game implements classical chess rules, including castling, pawn promotion, and draws due to insufficient material.
 
+<img width="2083" height="1070" alt="image" src="https://github.com/user-attachments/assets/60e3ea6b-7d0f-4f45-adaf-ece694ee0d32" />
+
 ## Features
 
 - Graphical chessboard with piece images.
@@ -20,9 +22,6 @@ The game implements classical chess rules, including castling, pawn promotion, a
 - Separate window displaying algebraic notation of the moves.
 - Graphical interface using SDL2.
 - Uses Open Sans fonts for the notation sheet.
-
-## Screenshots
-<img width="2083" height="1070" alt="image" src="https://github.com/user-attachments/assets/60e3ea6b-7d0f-4f45-adaf-ece694ee0d32" />
 
 ## Requirements
 
